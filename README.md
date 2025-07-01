@@ -1,4 +1,4 @@
-# Predicting Fraudulent Transactions with machine Learning
+# Predicting Fraudulent Transactions With Machine Learning
 
 🚀 **A comprehensive machine learning project achieving 97% AUC score for real-time fraud detection**
 
