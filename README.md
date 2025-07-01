@@ -35,7 +35,7 @@ This repository contains a complete end-to-end workflow for detecting fraudulent
 
 ## 📖 Project Overview
 
-Credit card fraud detection represents one of the most critical applications of machine learning in the financial industry. This project demonstrates a complete, production-ready approach to building robust fraud detection systems that can operate in real-time environments.
+Credit card fraud detection represents one of the most critical applications of machine learning in the financial industry. This project demonstrates a complete, production-ready approach to building robust fraud detection systems.
 
 ### 🎯 Objectives
 - **Primary Goal**: Develop a highly accurate fraud detection model with minimal false positives
