@@ -476,10 +476,6 @@ Contributions, issues, and feature requests are welcome!
 
 ### ⭐ Show Your Support
 Give a ⭐️ if this project helped you understand fraud detection or machine learning concepts!
-
-### 📄 License
-This project is licensed under the **Apache License 2.0**.
-
 ---
 
 ## 🎯 Project Status
