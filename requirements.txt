@@ -1,0 +1,35 @@
+# Credit Card Fraud Detection - Python Dependencies
+# Core Data Processing & Analysis
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Visualization Libraries
+matplotlib>=3.4.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# Machine Learning Framework
+scikit-learn>=1.0.0
+
+# Gradient Boosting Libraries
+lightgbm>=3.2.0
+xgboost>=1.4.0
+catboost>=1.0.0
+
+# Jupyter Environment
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Utility Libraries
+joblib>=1.0.0
+
+# Optional: Enhanced Performance & Explainability
+# Uncomment if needed for advanced features
+# numba>=0.53.0
+# shap>=0.39.0
+# lime>=0.2.0
+
+# Optional: Model Monitoring & Experiment Tracking
+# Uncomment if needed for production deployment
+# mlflow>=1.18.0
+# wandb>=0.12.0
