@@ -186,13 +186,25 @@ The comprehensive EDA includes:
 
 ---
 
-## 📈 Evaluation Metrics
 
-### 🎯 Primary Metrics
-- **ROC-AUC Score:** Main evaluation metric (excellent for imbalanced datasets)
-- **Precision:** Accuracy of fraud predictions (minimize false positives)
-- **Recall:** Fraud detection rate (minimize false negatives)
-- **F1-Score:** Harmonic mean of precision and recall
+## 📈 Evaluation Metrics (2025 Project Update)
+
+All model notebooks in this project now include a comprehensive set of evaluation metrics for fraud detection:
+
+- **Accuracy**: Overall proportion of correct predictions. Can be misleading for imbalanced data.
+- **Precision**: Proportion of predicted frauds that are actually fraud. Important for minimizing false positives.
+- **Recall (Sensitivity)**: Proportion of actual frauds correctly identified. Crucial for minimizing missed fraud.
+- **F1 Score**: Harmonic mean of precision and recall. Balances the trade-off, especially for imbalanced datasets.
+- **ROC-AUC Score**: Measures the model's ability to distinguish between classes across all thresholds. High values indicate strong discrimination.
+- **Classification Report**: Detailed breakdown of precision, recall, F1-score, and support for each class.
+
+### Why These Metrics?
+Fraud detection is a highly imbalanced classification problem. Relying on accuracy alone can be misleading, as a model could predict all transactions as legitimate and still achieve high accuracy. Therefore, precision, recall, F1, and ROC-AUC are prioritized to ensure both high fraud detection and minimal disruption to legitimate transactions.
+
+### Harmonized Evaluation Across Models
+- All model notebooks (Random Forest, AdaBoost, CatBoost, XGBoost, LightGBM, and Cross-Validation) now include code and markdown cells for these metrics.
+- This ensures consistent, interpretable, and business-relevant evaluation throughout the project.
+- The approach supports robust model comparison and transparent reporting for stakeholders.
 
 ### 📊 Visualization Tools
 - **Confusion Matrix:** True/false positive and negative visualization
