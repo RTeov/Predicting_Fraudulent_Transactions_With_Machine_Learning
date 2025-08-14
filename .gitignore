@@ -138,7 +138,8 @@ models/
 checkpoints/
 
 # Data files (optional - uncomment if you want to exclude large datasets)
-# *.csv
+# Ignore CSV files in Input_Data only
+Input_Data/*.csv
 # *.json
 # *.parquet
 # *.xlsx
