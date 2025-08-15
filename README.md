@@ -1,12 +1,12 @@
 # Predicting Fraudulent Transactions With Machine Learning
 
-🚀 **A comprehensive machine learning project achieving 97% AUC score for real-time fraud detection**
+🚀 **A comprehensive machine learning project for real-time fraud detection**
 
 This repository contains a complete end-to-end workflow for detecting fraudulent credit card transactions using advanced machine learning techniques. The project demonstrates industry-standard practices from data preparation through production-ready model deployment, with systematic evaluation of multiple algorithms and robust cross-validation methodology.
 
 ## 🏆 Project Highlights
 
-- **🎯 Exceptional Performance**: Achieved **97% AUC score** with LightGBM cross-validation
+- **🎯 Exceptional Performance**: Achieved high AUC scores with multiple ensemble models
 - **📊 Comprehensive Analysis**: 10 detailed Jupyter notebooks covering the complete ML pipeline
 - **🔬 Multiple Algorithms**: Systematic evaluation of 5+ machine learning models
 - **✅ Production Ready**: Robust cross-validation and optimized hyperparameters
@@ -225,17 +225,16 @@ Fraud detection is a highly imbalanced classification problem. Relying on accura
 
 | Model                    | ROC-AUC Score | Performance Level | Key Strengths |
 |--------------------------|---------------|-------------------|---------------|
-| **LightGBM (Cross-Val)** | **0.97** ⭐   | **Excellent**     | **Best overall performance, robust validation** |
 | XGBoost                  | 0.96          | Excellent         | High accuracy, feature importance |
-| LightGBM (Single)       | 0.95          | Very Good         | Fast training, memory efficient |
+| LightGBM (Single)        | 0.95          | Very Good         | Fast training, memory efficient |
 | CatBoost                 | 0.86          | Good              | Minimal tuning required |
 | Random Forest            | 0.85          | Good              | Robust baseline, interpretable |
 | AdaBoost                 | 0.81          | Satisfactory      | Simple implementation |
 
-### 🏆 Champion Model: LightGBM with Cross-Validation
+### 🏆 Champion Model: XGBoost
 
 **🎯 Performance Metrics:**
-- **ROC-AUC Score:** 0.97 (Exceptional)
+- **ROC-AUC Score:** 0.96 (Excellent)
 - **Cross-Validation:** 5-fold validation for robust performance
 - **Consistency:** Stable performance across all validation folds
 - **Training Efficiency:** Optimized for speed and memory usage
@@ -263,8 +262,8 @@ Fraud detection is a highly imbalanced classification problem. Relying on accura
 ### 🎯 Business Impact Metrics
 
 **Fraud Detection Effectiveness:**
-- **True Positive Rate:** ~97% (fraud correctly identified)
-- **False Positive Rate:** <3% (legitimate transactions flagged)
+- **True Positive Rate:** ~96% (fraud correctly identified)
+- **False Positive Rate:** <4% (legitimate transactions flagged)
 - **Precision:** High accuracy in fraud predictions
 - **Recall:** Excellent fraud detection coverage
 
@@ -279,7 +278,7 @@ Fraud detection is a highly imbalanced classification problem. Relying on accura
 ## 💼 Business Implications
 
 ### 🎯 Fraud Detection Effectiveness
-With a **97% AUC score**, this model provides:
+With a **96% AUC score**, this model provides:
 - **High Accuracy:** Correctly identifies fraudulent transactions while minimizing false positives
 - **Real-time Application:** Fast prediction capability suitable for online transaction processing
 - **Cost Reduction:** Significant reduction in financial losses from undetected fraud
@@ -361,7 +360,7 @@ Execute notebooks in order for complete understanding:
 6. `6_CatBoost Classifier.ipynb` - CatBoost model
 7. `7_XGBoost Classifier.ipynb` - XGBoost implementation  
 8. `8_LightGBM.ipynb` - LightGBM single model
-9. `9_Training and validation using cross-validation.ipynb` - Cross-validation
+9. `9_Training and validation using cross-validation.ipynb` - Cross-validation (excluding LightGBM CV)
 10. `10_Conclusions and Final Analysis.ipynb` - Final results and analysis
 
 #### Option B: Quick Start (Master Notebook)
@@ -372,7 +371,7 @@ jupyter notebook Credit_Card_Fraud_Detection_Predictive_Model.ipynb
 
 #### Option C: Best Model Only
 ```bash
-# Run only the best performing model
+# Run only the best performing model (XGBoost)
 jupyter notebook "9_Training and validation using cross-validation.ipynb"
 ```
 
@@ -494,7 +493,7 @@ Give a ⭐️ if this project helped you understand fraud detection or machine l
 
 ✅ **Complete** - All analysis finished, model optimized, documentation updated
 
-**📊 Final Performance:** 97% AUC Score achieved with LightGBM Cross-Validation
+**📊 Final Performance:** 96% AUC Score achieved with XGBoost
 
 **🚀 Production Ready:** Model optimized for real-world deployment
 
