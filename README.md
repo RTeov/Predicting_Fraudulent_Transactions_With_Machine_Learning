@@ -192,11 +192,6 @@ The comprehensive EDA includes:
 - **Strengths:** Memory efficiency, faster training
 - **Implementation:** Both single model and cross-validation approaches
 
-### 🎯 6. Cross-Validation Framework
-- **Method:** 5-fold KFold cross-validation
-- **Purpose:** Robust model assessment and generalization
-- **Benefits:** Reduced overfitting, reliable performance estimation
-
 ---
 
 
