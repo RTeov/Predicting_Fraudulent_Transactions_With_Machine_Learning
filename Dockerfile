@@ -34,8 +34,9 @@ ENV AWS_REGION=us-east-1
 # HEALTHCHECK CMD curl --fail http://localhost:8080/health || exit 1
 
 
-# Default command (override in ECS task definition or Lambda handler)
-CMD ["bash"]
+
+# Default command: run FastAPI app with uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
 
 # For AWS Lambda (if using AWS Lambda with container images)
 # Uncomment the following line and set your handler if using AWS Lambda
