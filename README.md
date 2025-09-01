@@ -412,7 +412,7 @@ if __name__ == "__main__":
     s3.upload_file("output.csv", "my-bucket", "output.csv")
 ```
 
-> **Note:** This project is now optimized for batch/script-based inference and AWS SageMaker/Boto3 workflows. REST API (FastAPI) support has been removed. Edit `app/main.py` to implement your batch or event-driven logic.
+> **Note:** This project is now optimized for batch/script-based inference and AWS SageMaker/Boto3 workflows. Edit `app/main.py` to implement your batch or event-driven logic.
 
 ---
 
