@@ -336,32 +336,103 @@ With a **96% AUC score**, this model provides:
 ---
 
 
-## ☁️ AWS Credentials: Manual Input Option
+
+## ☁️ AWS Credentials & Batch Inference Configuration
 
 **Manual Credentials (for local Docker or custom cloud runs):**
 
-- You can provide AWS credentials manually in `config.yaml` under the `aws_credentials` section:
+- Provide AWS credentials in `config.yaml` under the `aws_credentials` section:
 
    ```yaml
-      aws_credentials:
-         aws_access_key_id: "YOUR_AWS_ACCESS_KEY_ID"
-         aws_secret_access_key: "YOUR_AWS_SECRET_ACCESS_KEY"
-         aws_session_token: "YOUR_AWS_SESSION_TOKEN"  # Required only for temporary credentials (leave blank for long-term keys)
+   aws_credentials:
+      aws_access_key_id: "YOUR_AWS_ACCESS_KEY_ID"
+      aws_secret_access_key: "YOUR_AWS_SECRET_ACCESS_KEY"
+      aws_session_token: "YOUR_AWS_SESSION_TOKEN"  # Required only for temporary credentials (leave blank for long-term keys)
    ```
 
-- These credentials will be set as environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`) at runtime by the batch scripts.
+- These credentials are set as environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`) at runtime by the batch scripts.
+- Alternatively, you can set them as Docker environment variables at runtime:
+
+   ```sh
+   docker run -e AWS_ACCESS_KEY_ID=your-key -e AWS_SECRET_ACCESS_KEY=your-secret -e AWS_SESSION_TOKEN=your-token fraud-batch
+   ```
 
 **About `aws_session_token`:**
 - If you are using temporary AWS credentials (such as those from an IAM role, federated login, or STS), you must provide `aws_session_token` as well.
 - For long-term access keys, leave `aws_session_token` blank or omit it.
-- Alternatively, you can set them as Docker environment variables at runtime:
-
-   ```sh
-   docker run -e AWS_ACCESS_KEY_ID=your-key -e AWS_SECRET_ACCESS_KEY=your-secret fraud-batch
-   ```
 
 **Security Note:**
 > Never commit real credentials to version control. Use environment variables or secrets management in production.
+
+---
+
+## 🔧 Batch Inference & Aggregation Workflow
+
+- All batch scripts (Random Forest, AdaBoost, CatBoost, XGBoost, LightGBM) use `config.yaml` for input/output/model paths and AWS credentials.
+- Each script writes its predictions to a unique file in the directory specified by `output_dir` in `config.yaml`.
+- The aggregation script (`aggregate_results.py`) combines all model predictions into a single CSV in the same `output_dir`.
+- You can control all paths and model selection via `config.yaml`.
+
+**Example `config.yaml` structure:**
+
+```yaml
+# Optional: Manual AWS credentials for use in Docker/batch scripts
+aws_credentials:
+   aws_access_key_id: "YOUR_AWS_ACCESS_KEY_ID"
+   aws_secret_access_key: "YOUR_AWS_SECRET_ACCESS_KEY"
+   aws_session_token: "YOUR_AWS_SESSION_TOKEN"  # Required only for temporary credentials (leave blank for long-term keys)
+
+# Input/output paths for batch script
+input_data: "Input_Data/creditcard_post_correlation.csv"  # Local path or S3 URI
+output_dir: "output/"    # Directory for all model predictions and aggregation
+yaml_output: "output/predictions.csv"    # Default output, but each model will write its own file
+
+# Model settings (set per model if needed)
+model_path: "models/random_forest_model.pkl"           # Local path or S3 URI
+model_paths:
+   random_forest: "models/random_forest_model.pkl"
+   adaboost: "models/adaboost_model.pkl"
+   catboost: "models/catboost_model.cbm"
+   xgboost: "models/xgboost_model.json"
+   lightgbm: "models/lightgbm_model.txt"
+
+# AWS settings
+aws:
+   s3_bucket: "your-s3-bucket-name"
+   region: "us-east-1"
+   input_prefix: "input/"
+   output_prefix: "output/"
+   role_arn: "arn:aws:iam::123456789012:role/SageMakerRole"
+
+# Models to run (controls which batch scripts execute)
+models_to_run:
+   - random_forest
+   - adaboost
+   - catboost
+   - xgboost
+   - lightgbm
+
+# Other parameters
+batch_size: 1000
+log_level: INFO
+```
+
+---
+
+## 🐳 Docker & .dockerignore
+
+- The Dockerfile copies all code and config into the container and runs all batch scripts and aggregation in sequence.
+- `.dockerignore` excludes data, model artifacts, checkpoints, and unnecessary files from the Docker build context for security and efficiency.
+- No credentials or sensitive data are included in the image if you follow the config and ignore file structure.
+
+---
+
+## ☁️ SageMaker & Cloud Usage
+
+- The container is ready for AWS SageMaker Processing or Batch Transform jobs.
+- `config.yaml` is copied into the container and found at runtime.
+- You can pass credentials via `config.yaml` or as environment variables at job launch.
+- All outputs are written to the directory specified by `output_dir` in `config.yaml`.
 
 ---
 
