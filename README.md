@@ -446,23 +446,6 @@ wandb >= 0.12.0      # Weights & Biases integration
 
 ---
 
-## 📈 Future Enhancements
-
-### 🔮 Planned Improvements
-- **Real-time API**: Flask/FastAPI deployment for live fraud scoring
-- **Model Explainability**: SHAP and LIME integration for decision transparency  
-- **Advanced Features**: Graph-based fraud detection and behavioral analytics
-- **Monitoring Dashboard**: MLflow integration for model performance tracking
-- **Auto-retraining**: Automated pipeline for model updates with new fraud patterns
-
-### 🤖 Advanced Techniques
-- **Deep Learning**: Neural network approaches (Autoencoders, LSTM)
-- **Ensemble Methods**: Stacking and blending multiple algorithms
-- **Anomaly Detection**: Isolation Forest and One-Class SVM implementation
-- **Time Series**: Temporal pattern analysis for fraud detection
-
----
-
 ## 🛠️ Production/Batch Inference & AWS Integration (2025 Update)
 
 This project is now structured for batch or event-driven inference, suitable for AWS SageMaker, Batch, or Lambda workflows. The REST API (FastAPI) code has been removed for a simpler, script-based deployment.
