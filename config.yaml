@@ -4,12 +4,21 @@
 environment: local  # or 'aws'
 
 
+
 # Input/output paths for batch script
 input_data: "Input_Data/creditcard_post_correlation.csv"  # Local path or S3 URI
-yaml_output: "output/predictions.csv"    # Local path or S3 URI
+# All model scripts will write to this directory with unique filenames
+output_dir: "output/"    # Directory for all model predictions and aggregation
+yaml_output: "output/predictions.csv"    # Default output, but each model will write its own file
 
-# Model settings
+# Model settings (set per model if needed)
 model_path: "models/random_forest_model.pkl"           # Local path or S3 URI
+model_paths:
+  random_forest: "models/random_forest_model.pkl"
+  adaboost: "models/adaboost_model.pkl"
+  catboost: "models/catboost_model.cbm"
+  xgboost: "models/xgboost_model.json"
+  lightgbm: "models/lightgbm_model.txt"
 
 # AWS settings
 aws:
@@ -18,6 +27,14 @@ aws:
   input_prefix: "input/"
   output_prefix: "output/"
   role_arn: "arn:aws:iam::123456789012:role/SageMakerRole"
+
+# Models to run (controls which batch scripts execute)
+models_to_run:
+  - random_forest
+  - adaboost
+  - catboost
+  - xgboost
+  - lightgbm
 
 # Other parameters
 batch_size: 1000
