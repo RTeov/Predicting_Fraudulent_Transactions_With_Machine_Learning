@@ -1,7 +1,10 @@
+
 import os
 import pandas as pd
 import logging
 import yaml
+import tempfile
+import boto3
 
 def load_config(config_path="config.yaml"):
     with open(config_path, "r") as f:
@@ -11,25 +14,46 @@ def load_config(config_path="config.yaml"):
 def aggregate_predictions(output_dir, output_file="final_aggregated_predictions.csv"):
     """
     Aggregates all model prediction outputs into a single CSV file.
-    Assumes each model writes a CSV with a unique prediction column (e.g., prediction_random_forest).
-    Output is written to config['output_dir'].
+    Supports both local directories and S3 URIs for input/output.
     """
     logging.basicConfig(level=logging.INFO)
     try:
-        os.makedirs(output_dir, exist_ok=True)
-        files = [f for f in os.listdir(output_dir) if f.startswith("predictions_") and f.endswith(".csv")]
-        if not files:
-            logging.error("No prediction files found for aggregation.")
-            return
-        base = pd.read_csv(os.path.join(output_dir, files[0]))
-        for f in files[1:]:
-            df = pd.read_csv(os.path.join(output_dir, f))
+        is_s3 = output_dir.startswith("s3://")
+        s3 = boto3.client("s3") if is_s3 else None
+        temp_dir = tempfile.mkdtemp() if is_s3 else output_dir
+        if is_s3:
+            bucket, prefix = output_dir.replace("s3://", "").split("/", 1)
+            # List all prediction files in the S3 prefix
+            response = s3.list_objects_v2(Bucket=bucket, Prefix=prefix)
+            files = [obj['Key'] for obj in response.get('Contents', []) if obj['Key'].endswith('.csv') and os.path.basename(obj['Key']).startswith('predictions_')]
+            if not files:
+                logging.error("No prediction files found for aggregation in S3.")
+                return
+            # Download all files to temp_dir
+            local_files = []
+            for key in files:
+                local_path = os.path.join(temp_dir, os.path.basename(key))
+                s3.download_file(bucket, key, local_path)
+                local_files.append(local_path)
+        else:
+            os.makedirs(temp_dir, exist_ok=True)
+            local_files = [os.path.join(temp_dir, f) for f in os.listdir(temp_dir) if f.startswith("predictions_") and f.endswith(".csv")]
+            if not local_files:
+                logging.error("No prediction files found for aggregation.")
+                return
+        base = pd.read_csv(local_files[0])
+        for f in local_files[1:]:
+            df = pd.read_csv(f)
             for col in df.columns:
                 if col.startswith("prediction_") and col not in base.columns:
                     base[col] = df[col]
-        out_path = os.path.join(output_dir, output_file)
+        out_path = os.path.join(temp_dir, output_file)
         base.to_csv(out_path, index=False)
-        logging.info(f"Aggregated predictions saved to {out_path}")
+        if is_s3:
+            s3.upload_file(out_path, bucket, os.path.join(prefix, output_file))
+            logging.info(f"Aggregated predictions saved to s3://{bucket}/{os.path.join(prefix, output_file)}")
+        else:
+            logging.info(f"Aggregated predictions saved to {out_path}")
     except Exception as e:
         logging.error(f"Error during aggregation: {e}")
 
