@@ -436,20 +436,6 @@ wandb >= 0.12.0      # Weights & Biases integration
 
 ---
 
-## 👨‍💻 Author: Roberto Teov
-
-**Roberto Teov**
-- 🔗 **GitHub:** (https://github.com/RTeov)
-- 💼 **LinkedIn:** (https://www.linkedin.com/in/roberto-teov-690279225/)
-- 📧 **Email:** teovroberto@gmail.com
-
-### 🤝 Contributing
-Contributions, issues, and feature requests are welcome!
-
-### ⭐ Show Your Support
-Give a ⭐️ if this project helped you understand fraud detection or machine learning concepts!
----
-
 ## 🎯 Project Status
 
 ✅ **Complete** - All analysis finished, model optimized, documentation updated
