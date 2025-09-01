@@ -37,6 +37,10 @@ joblib>=1.0.0
 # AWS SDK for Python
 boto3>=1.28.0
 
+
+# YAML config support
+pyyaml>=6.0.0
+
 # Environment Variables and Testing
 python-dotenv>=1.0.0
 pytest>=7.0.0
