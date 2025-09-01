@@ -39,8 +39,8 @@ def save_data(df, output_path):
         bucket, key = output_path.replace("s3://", "").split("/", 1)
         upload_to_s3(local_path, bucket, key)
     else:
-        # Save with unique name for AdaBoost
         out_path = output_path.replace("predictions", "predictions_adaboost")
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
         df.to_csv(out_path, index=False)
 
 def load_model(model_path):
@@ -81,7 +81,7 @@ def main():
             return
         input_path = config["input_data"]
         output_path = config["yaml_output"]
-        model_path = config["model_path"]
+        model_path = config.get("model_paths", {}).get("adaboost", config["model_path"])
 
         predictors = [
             'Transaction_Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10',
