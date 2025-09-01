@@ -439,63 +439,81 @@ model_paths:
 # AWS settings
 aws:
    s3_bucket: "your-s3-bucket-name"
-   region: "us-east-1"
-   input_prefix: "input/"
-   output_prefix: "output/"
-   role_arn: "arn:aws:iam::123456789012:role/SageMakerRole"
 
-# Models to run (controls which batch scripts execute)
-models_to_run:
-   - random_forest
-   - adaboost
-   - catboost
-   - xgboost
-   - lightgbm
+   ---
 
-# Other parameters
-batch_size: 1000
-log_level: INFO
-```
+   ### ⚠️ Input Data Requirement
 
----
+   Before running any batch scripts or the aggregation script, you must have the input data file available at the location specified by `input_data` in your `config.yaml` (default: `Input_Data/creditcard_post_correlation.csv`).
 
-## 🐳 Docker & .dockerignore
+   - If this file is missing, the batch scripts will fail.
+   - Ensure the file is present and contains the required columns as described in the [Example Input Data Format](#example-input-data-format) section below.
+   - **For SageMaker/cloud:** Upload `creditcard_post_correlation.csv` to an S3 bucket and set the `input_data` path in `config.yaml` to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
+   - **Credentials:** Your AWS credentials (in `config.yaml` or as environment variables) must have permission to read from the S3 bucket you specify for `input_data` and `output_dir`.
 
-- The Dockerfile copies all code and config into the container and runs all batch scripts and aggregation in sequence.
-- `.dockerignore` excludes data, model artifacts, checkpoints, and unnecessary files from the Docker build context for security and efficiency.
-- No credentials or sensitive data are included in the image if you follow the config and ignore file structure.
+   **To generate this file:** Run the following notebooks in order:
+   1. `1_Data_Preparation.ipynb`
+   2. `2_Data_Exploration.ipynb`
+   3. `3_Features_Correlation.ipynb`
+   These notebooks will process the raw data and produce `creditcard_post_correlation.csv` in the `Input_Data/` folder. Alternatively, obtain the file from your data pipeline if available.
 
----
+   ---
 
-## ☁️ SageMaker & Cloud Usage
+   ### ▶️ Run Locally (Batch Inference & Aggregation)
 
-- The container is ready for AWS SageMaker Processing or Batch Transform jobs.
-- `config.yaml` is copied into the container and found at runtime.
-- You can pass credentials via `config.yaml` or as environment variables at job launch.
-- All outputs are written to the directory specified by `output_dir` in `config.yaml`.
+   1. **Install dependencies:**
+      ```bash
+      pip install -r requirements.txt
+      ```
+   2. **Prepare your input data:**
+      - Place your input CSV (with the required columns) in the location specified by `input_data` in `config.yaml`.
+   3. **Edit `config.yaml`:**
+      - Set all paths, model files, and AWS credentials as needed.
+      - Set `output_dir` to the directory where you want all predictions and the aggregated results to be saved.
+      - Select which models to run in `models_to_run`.
+   4. **Run all batch scripts and aggregate results:**
+      ```bash
+      python app/random_forest_batch.py
+      python app/adaboost_batch.py
+      python app/catboost_batch.py
+      python app/xgboost_batch.py
+      python app/lightgbm_batch.py
+      python app/aggregate_results.py
+      ```
+      Or, if using Docker:
+      ```bash
+      docker build -t fraud-batch .
+      docker run --rm -v $(pwd)/output:/app/output fraud-batch
+      ```
+      (All outputs will be in the `output_dir` specified in your config.)
 
----
+   ---
 
+   ### ▶️ Run on AWS SageMaker or Cloud (Batch Inference & Aggregation)
 
-### ☁️ Run on AWS (SageMaker Batch/Processing)
+   1. **Upload input data to S3:**
+      - Upload `creditcard_post_correlation.csv` to your S3 bucket.
+      - In `config.yaml`, set `input_data` to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
+      - Optionally, set `output_dir` to an S3 URI for cloud-based output aggregation.
+   2. **Edit `config.yaml`:**
+      - Set all model paths, AWS credentials, and other parameters as needed.
+      - Ensure your credentials have permission to read/write to the specified S3 locations.
+   3. **Build and push Docker image:**
+      ```bash
+      docker build -t fraud-batch .
+      # Authenticate Docker to ECR
+      aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
+      # Tag and push
+      docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+      docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+      ```
+   4. **Launch a SageMaker Processing or Batch Transform job:**
+      - Use the ECR image and specify S3 input/output locations in your SageMaker job definition.
+      - The container will run all batch scripts and aggregate results automatically (see Dockerfile entrypoint).
+      - All outputs will be written to the S3 location mapped to your `output_dir` in `config.yaml`.
+      - You can pass AWS credentials via `config.yaml` or as environment variables at job launch if needed.
 
-1. **Build Docker image:**
-   ```bash
-   docker build -t fraud-batch .
-   ```
-2. **Push to ECR:**
-   ```bash
-   # Authenticate Docker to ECR
-   aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
-   # Tag and push
-   docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-   docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-   ```
-3. **Launch a SageMaker Processing or Batch Transform job:**
-   - Use the ECR image and specify S3 input/output locations in your SageMaker job definition.
-   - The container will run all batch scripts and aggregate results automatically (see Dockerfile entrypoint).
-   - All outputs will be written to the S3 location mapped to your `output_dir` in `config.yaml`.
-   - You can pass AWS credentials via `config.yaml` or as environment variables at job launch if needed.
+   ---
 
 ---
 ## 🛠️ Production/Batch Inference & AWS Integration (2025 Update)
