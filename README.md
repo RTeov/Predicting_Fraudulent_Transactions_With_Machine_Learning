@@ -319,92 +319,40 @@ With a **96% AUC score**, this model provides:
 
 ---
 
-## 🚀 How to Run
+## 🚀 How to Run the Project
 
-### 📋 Prerequisites
-- Python 3.7+ installed on your system
-- Jupyter Notebook or VS Code with Python extension
-- Minimum 8GB RAM recommended for full dataset processing
+### ▶️ Run Locally (Batch Inference)
 
-### 🔧 Setup Instructions
+1. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. **Prepare your input data:**
+   - Place your input CSV (with the required columns) in the project directory.
+3. **Edit `app/main.py`:**
+   - Implement your batch logic (e.g., load input CSV, run predictions, save output CSV).
+4. **Run the batch script:**
+   ```bash
+   python app/main.py
+   ```
 
-#### 1. **Clone the Repository**
-```bash
-git clone https://github.com/yourusername/Credit_Card_Fraud_Detection_Predictive_Model.git
-cd Credit_Card_Fraud_Detection_Predictive_Model
-```
+### ☁️ Run on AWS (SageMaker Batch/Processing)
 
-#### 2. **Download the Dataset**
-- Visit [Kaggle Credit Card Fraud Detection Dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud)
-- Download `creditcard.csv` (143.8 MB)
-- Place the file in the `Input_Data/` directory
-
-#### 3. **Install Dependencies**
-```bash
-# Recommended: Install from requirements file
-pip install -r requirements.txt
-
-# Alternative: Install packages individually
-pip install pandas numpy matplotlib seaborn scikit-learn plotly
-pip install catboost xgboost lightgbm jupyter
-```
-
-#### 4. **Environment Setup (Optional but Recommended)**
-```bash
-# Create virtual environment
-python -m venv fraud_detection_env
-
-# Activate environment (Windows)
-fraud_detection_env\Scripts\activate
-
-# Activate environment (macOS/Linux)
-source fraud_detection_env/bin/activate
-```
-
-### 🎯 Execution Options
-
-#### Option A: Sequential Notebook Execution (Recommended)
-Execute notebooks in order for complete understanding:
-1. `1_Data_Preparation.ipynb` - Data cleaning and preprocessing
-2. `2_Data_Exploration.ipynb` - Exploratory data analysis
-3. `3_Features_Correlation.ipynb` - Feature selection and correlation
-4. `4_Random Forest Classifier.ipynb` - Baseline model
-5. `5_AdaBoost Classifier.ipynb` - AdaBoost implementation
-6. `6_CatBoost Classifier.ipynb` - CatBoost model
-7. `7_XGBoost Classifier.ipynb` - XGBoost implementation  
-8. `8_LightGBM.ipynb` - LightGBM single model
-9. `9_Training and validation using cross-validation.ipynb` - Cross-validation (excluding LightGBM CV)
-10. `10_Conclusions and Final Analysis.ipynb` - Final results and analysis
-
-#### Option B: Quick Start (Master Notebook)
-```bash
-# Open the master notebook for complete workflow
-jupyter notebook Credit_Card_Fraud_Detection_Predictive_Model.ipynb
-```
-
-#### Option C: Best Model Only
-```bash
-# Run only the best performing model (XGBoost)
-jupyter notebook "9_Training and validation using cross-validation.ipynb"
-```
-
-### ⚡ Quick Performance Test
-```python
-# Test installation and quick model run
-python -c "
-import pandas as pd
-import lightgbm as lgb
-from sklearn.model_selection import train_test_split
-print('✅ All packages installed successfully!')
-print('🚀 Ready to run fraud detection models!')
-"
-```
-
-### 🔍 Expected Runtime
-- **Complete Workflow:** 30-45 minutes (all notebooks)
-- **Single Model:** 5-10 minutes (individual algorithm)
-- **Cross-Validation:** 15-20 minutes (best model with CV)
-- **Quick Test:** 2-3 minutes (sample validation)
+1. **Build Docker image:**
+   ```bash
+   docker build -t fraud-batch .
+   ```
+2. **Push to ECR:**
+   ```bash
+   # Authenticate Docker to ECR
+   aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
+   # Tag and push
+   docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+   docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+   ```
+3. **Launch a SageMaker Processing or Batch Transform job:**
+   - Use the ECR image and specify S3 input/output locations.
+   - Your script in `app/main.py` should use `boto3` to download input data from S3 and upload results back to S3.
 
 ---
 
