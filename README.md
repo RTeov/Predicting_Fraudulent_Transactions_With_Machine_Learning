@@ -1,3 +1,16 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10-blue?logo=python" alt="Python 3.10"/>
+  <img src="https://img.shields.io/badge/Pandas-1.3+-yellow?logo=pandas" alt="Pandas"/>
+  <img src="https://img.shields.io/badge/NumPy-1.21+-orange?logo=numpy" alt="NumPy"/>
+  <img src="https://img.shields.io/badge/Scikit--Learn-1.0+-blue?logo=scikit-learn" alt="Scikit-Learn"/>
+  <img src="https://img.shields.io/badge/LightGBM-3.2+-green?logo=leaflet" alt="LightGBM"/>
+  <img src="https://img.shields.io/badge/XGBoost-1.4+-red?logo=xgboost" alt="XGBoost"/>
+  <img src="https://img.shields.io/badge/CatBoost-1.0+-yellowgreen?logo=cat" alt="CatBoost"/>
+  <img src="https://img.shields.io/badge/Boto3-1.28+-blue?logo=amazon-aws" alt="Boto3"/>
+  <img src="https://img.shields.io/badge/AWS%20CLI-required-orange?logo=amazon-aws" alt="AWS CLI"/>
+  <img src="https://img.shields.io/badge/Docker-required-blue?logo=docker" alt="Docker"/>
+</p>
+
 # Predicting Fraudulent Transactions With Machine Learning
 
 🚀 **A comprehensive machine learning project for real-time fraud detection**
