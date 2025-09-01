@@ -11,10 +11,6 @@
   <img src="https://img.shields.io/badge/Docker-required-blue?logo=docker" alt="Docker"/>
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/aws-samples/amazon-sagemaker-batch-transform/main/images/batch-transform-architecture.png" alt="AWS SageMaker Batch Inference Architecture" width="600"/>
-</p>
-
 # Predicting Fraudulent Transactions With Machine Learning
 
 🚀 **A comprehensive machine learning project for real-time fraud detection**
