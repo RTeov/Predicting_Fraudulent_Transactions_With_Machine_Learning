@@ -71,6 +71,13 @@ def log_metrics(y_true, y_pred):
     logging.info("\nClassification Report:\n" + classification_report(y_true, y_pred, target_names=["Not Fraud", "Fraud"]))
 
 def main():
+    # Optionally set AWS credentials from config if present
+    aws_creds = config.get("aws_credentials", {})
+    if aws_creds:
+        os.environ["AWS_ACCESS_KEY_ID"] = aws_creds.get("aws_access_key_id", "")
+        os.environ["AWS_SECRET_ACCESS_KEY"] = aws_creds.get("aws_secret_access_key", "")
+        if aws_creds.get("aws_session_token"):
+            os.environ["AWS_SESSION_TOKEN"] = aws_creds["aws_session_token"]
     logging.basicConfig(level=logging.INFO)
     try:
         config = load_config("config.yaml")
