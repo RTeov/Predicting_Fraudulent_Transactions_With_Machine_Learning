@@ -36,8 +36,9 @@ ENV AWS_REGION=us-east-1
 
 
 
-# ENTRYPOINT for SageMaker: run FastAPI app with uvicorn via serve.py
-ENTRYPOINT ["python", "serve.py"]
+
+# ENTRYPOINT for batch or script-based inference
+ENTRYPOINT ["python", "app/main.py"]
 
 # For AWS Lambda (if using AWS Lambda with container images)
 # Uncomment the following line and set your handler if using AWS Lambda
