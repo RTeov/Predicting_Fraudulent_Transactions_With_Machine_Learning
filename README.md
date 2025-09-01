@@ -329,10 +329,13 @@ With a **96% AUC score**, this model provides:
 > - If this file is missing, the batch scripts will fail.
 > - Ensure the file is present and contains the required columns as described in the [Example Input Data Format](#example-input-data-format) section below.
 
-> **For SageMaker deployment:**
 > - You must upload `creditcard_post_correlation.csv` to an S3 bucket.
 > - In your `config.yaml`, set the `input_data` path to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
 > - SageMaker jobs will read the input data directly from S3.
+> - You must upload `creditcard_post_correlation.csv` to an S3 bucket.
+> - In your `config.yaml`, set the `input_data` path to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
+> - SageMaker jobs will read the input data directly from S3.
+> - **Important:** Make sure your AWS credentials (in `config.yaml` or as environment variables) have permission to read from the S3 bucket you specify for `input_data` and `output_dir`.
 
 > **To generate this file:** You must run the following notebooks in order:
 >   1. `1_Data_Preparation.ipynb`
