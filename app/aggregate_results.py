@@ -7,10 +7,12 @@ def load_config(config_path="config.yaml"):
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
 
+
 def aggregate_predictions(output_dir, output_file="final_aggregated_predictions.csv"):
     """
     Aggregates all model prediction outputs into a single CSV file.
     Assumes each model writes a CSV with a unique prediction column (e.g., prediction_random_forest).
+    Output is written to config['output_dir'].
     """
     logging.basicConfig(level=logging.INFO)
     try:
