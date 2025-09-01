@@ -395,22 +395,30 @@ tests/                # Placeholder for batch/boto3-based tests
 - **boto3** is required in your Python environment (and is included in `requirements.txt`) for any script that interacts with AWS services (e.g., S3, SageMaker) at runtime.
     - No need to install AWS CLI inside your Docker image—only on your local/dev machine.
 
-### 📝 Example Batch Script (app/main.py)
+
+### 📝 Example Batch Script (app/main.py) with YAML Config
 ```python
-from app.models.predictor import get_model, predict_transaction
-import boto3
-import pandas as pd
+import yaml
+import os
+# from app.models.predictor import get_model, predict_transaction
+# import boto3
+# import pandas as pd
+
+def load_config(config_path="../config.yaml"):
+   with open(os.path.join(os.path.dirname(__file__), config_path), "r") as f:
+      return yaml.safe_load(f)
 
 if __name__ == "__main__":
-    # Example: Download input data from S3
-    s3 = boto3.client("s3")
-    s3.download_file("my-bucket", "input.csv", "input.csv")
-    df = pd.read_csv("input.csv")
-    model = get_model()
-    results = [predict_transaction(model, row.to_dict()) for _, row in df.iterrows()]
-    pd.DataFrame(results).to_csv("output.csv", index=False)
-    s3.upload_file("output.csv", "my-bucket", "output.csv")
+   config = load_config()
+   print("Loaded config:", config)
+   # Example: use config values
+   # input_data = config["input_data"]
+   # model_path = config["model_path"]
+   # Implement your batch logic here using config values
+   # For AWS: use config["aws"]["s3_bucket"] etc.
 ```
+
+> **Note:** Project configuration is now managed via `config.yaml`. Adjust paths, model settings, and AWS parameters there for both local and cloud runs.
 
 > **Note:** This project is now optimized for batch/script-based inference and AWS SageMaker/Boto3 workflows. Edit `app/main.py` to implement your batch or event-driven logic.
 
