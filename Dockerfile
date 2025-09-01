@@ -35,8 +35,9 @@ ENV AWS_REGION=us-east-1
 
 
 
-# Default command: run FastAPI app with uvicorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+
+# ENTRYPOINT for SageMaker: run FastAPI app with uvicorn via serve.py
+ENTRYPOINT ["python", "serve.py"]
 
 # For AWS Lambda (if using AWS Lambda with container images)
 # Uncomment the following line and set your handler if using AWS Lambda
