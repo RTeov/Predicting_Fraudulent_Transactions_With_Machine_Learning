@@ -3,12 +3,13 @@
 # General settings
 environment: local  # or 'aws'
 
-# Input/output paths
-input_data: "Input_Data/your_input.csv"  # Local path or S3 URI
+
+# Input/output paths for batch script
+input_data: "Input_Data/creditcard_post_correlation.csv"  # Local path or S3 URI
 yaml_output: "output/predictions.csv"    # Local path or S3 URI
 
 # Model settings
-model_path: "models/model.pkl"           # Local path or S3 URI
+model_path: "models/random_forest_model.pkl"           # Local path or S3 URI
 
 # AWS settings
 aws:
