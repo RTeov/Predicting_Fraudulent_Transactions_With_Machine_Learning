@@ -332,6 +332,39 @@ With a **96% AUC score**, this model provides:
    python app/main.py
    ```
 
+
+---
+
+
+## ☁️ AWS Credentials: Manual Input Option
+
+**Manual Credentials (for local Docker or custom cloud runs):**
+
+- You can provide AWS credentials manually in `config.yaml` under the `aws_credentials` section:
+
+   ```yaml
+      aws_credentials:
+         aws_access_key_id: "YOUR_AWS_ACCESS_KEY_ID"
+         aws_secret_access_key: "YOUR_AWS_SECRET_ACCESS_KEY"
+         aws_session_token: "YOUR_AWS_SESSION_TOKEN"  # Required only for temporary credentials (leave blank for long-term keys)
+   ```
+
+- These credentials will be set as environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`) at runtime by the batch scripts.
+
+**About `aws_session_token`:**
+- If you are using temporary AWS credentials (such as those from an IAM role, federated login, or STS), you must provide `aws_session_token` as well.
+- For long-term access keys, leave `aws_session_token` blank or omit it.
+- Alternatively, you can set them as Docker environment variables at runtime:
+
+   ```sh
+   docker run -e AWS_ACCESS_KEY_ID=your-key -e AWS_SECRET_ACCESS_KEY=your-secret fraud-batch
+   ```
+
+**Security Note:**
+> Never commit real credentials to version control. Use environment variables or secrets management in production.
+
+---
+
 ### ☁️ Run on AWS (SageMaker Batch/Processing)
 
 1. **Build Docker image:**
