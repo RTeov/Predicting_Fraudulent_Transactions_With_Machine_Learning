@@ -513,3 +513,102 @@ Give a ⭐️ if this project helped you understand fraud detection or machine l
 - **Ensemble Methods**: Stacking and blending multiple algorithms
 - **Anomaly Detection**: Isolation Forest and One-Class SVM implementation
 - **Time Series**: Temporal pattern analysis for fraud detection
+
+---
+
+## 🛠️ Production/Batch Inference & AWS Integration (2025 Update)
+
+This project is now structured for batch or event-driven inference, suitable for AWS SageMaker, Batch, or Lambda workflows. The REST API (FastAPI) code has been removed for a simpler, script-based deployment.
+
+### 🗂️ Project Structure (Key Folders)
+```
+app/
+    main.py           # Batch/script entrypoint (edit for your workflow)
+    models/
+        predictor.py  # Model loading and batch prediction logic
+        schemas.py    # (Optional) Input schema placeholder
+    __init__.py
+    models/__init__.py
+
+requirements.txt      # Now includes only core, ML, and boto3 dependencies
+Dockerfile            # Runs app/main.py for batch inference
+.env                  # Environment variables (e.g., model path)
+serve.py              # (To be deleted if present; not needed for batch)
+tests/                # Placeholder for batch/boto3-based tests
+```
+
+### 🚀 How to Run Batch Inference
+
+1. **Build Docker Image:**
+   ```bash
+   docker build -t fraud-batch .
+   ```
+2. **Run Batch Script:**
+   ```bash
+   docker run --env-file .env fraud-batch
+   ```
+   Edit `app/main.py` to implement your batch or event-driven logic (e.g., load data from S3, run predictions, save results).
+
+3. **AWS SageMaker/Boto3:**
+   - Use this image as a custom container for SageMaker Processing or Batch Transform jobs.
+   - Use `boto3` in your script to interact with S3 or other AWS services.
+
+### ⚡ AWS CLI and boto3 Requirements
+
+- **AWS CLI** is required on your local machine or CI/CD environment to build, tag, and push Docker images to Amazon ECR, and to manage AWS resources (ECR, SageMaker, S3, etc.).
+    - [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+    - Configure with `aws configure` before pushing images or running AWS commands.
+- **boto3** is required in your Python environment (and is included in `requirements.txt`) for any script that interacts with AWS services (e.g., S3, SageMaker) at runtime.
+    - No need to install AWS CLI inside your Docker image—only on your local/dev machine.
+
+### 📝 Example Batch Script (app/main.py)
+```python
+from app.models.predictor import get_model, predict_transaction
+import boto3
+import pandas as pd
+
+if __name__ == "__main__":
+    # Example: Download input data from S3
+    s3 = boto3.client("s3")
+    s3.download_file("my-bucket", "input.csv", "input.csv")
+    df = pd.read_csv("input.csv")
+    model = get_model()
+    results = [predict_transaction(model, row.to_dict()) for _, row in df.iterrows()]
+    pd.DataFrame(results).to_csv("output.csv", index=False)
+    s3.upload_file("output.csv", "my-bucket", "output.csv")
+```
+
+> **Note:** This project is now optimized for batch/script-based inference and AWS SageMaker/Boto3 workflows. REST API (FastAPI) support has been removed. Edit `app/main.py` to implement your batch or event-driven logic.
+
+---
+
+## 🚀 Example AWS CLI Commands
+
+**Build, tag, and push your Docker image to ECR:**
+```bash
+# Build Docker image
+docker build -t fraud-batch .
+
+# Authenticate Docker to your ECR registry
+aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
+
+# Tag the image for ECR
+docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+
+# Push the image to ECR
+docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+```
+
+**Launch a SageMaker Processing or Batch Transform job using your image** (see AWS docs for details).
+
+---
+
+## 📥 Example Input Data Format
+
+Your batch script expects input data as a CSV file with the following columns:
+
+```csv
+Transaction_Time,V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V11,V12,V13,V14,V15,V16,V17,V18,V19,V20,V21,V22,V23,V24,V25,V26,V27,V28,Transaction_Amount
+12345,0.1,0.2,...,100.0
+67890,-0.5,0.3,...,250.0
+```
