@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Data and model artifacts
+Input_Data/
+catboost_info/
+*.csv
+*.tsv
+*.json
+*.out.tfevents
+*.pkl
+*.h5
+*.joblib
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python virtual environments
+env/
+.venv/
+
+# Ignore test outputs
+*.log
+
+# Ignore notebook outputs (optional, if you want to keep notebooks clean)
+# *.ipynb
