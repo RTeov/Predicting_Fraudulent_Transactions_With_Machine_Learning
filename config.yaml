@@ -1,0 +1,23 @@
+# Example configuration for batch inference and AWS deployment
+
+# General settings
+environment: local  # or 'aws'
+
+# Input/output paths
+input_data: "Input_Data/your_input.csv"  # Local path or S3 URI
+yaml_output: "output/predictions.csv"    # Local path or S3 URI
+
+# Model settings
+model_path: "models/model.pkl"           # Local path or S3 URI
+
+# AWS settings
+aws:
+  s3_bucket: "your-s3-bucket-name"
+  region: "us-east-1"
+  input_prefix: "input/"
+  output_prefix: "output/"
+  role_arn: "arn:aws:iam::123456789012:role/SageMakerRole"
+
+# Other parameters
+batch_size: 1000
+log_level: INFO
