@@ -38,3 +38,7 @@ joblib>=1.0.0
 fastapi>=0.100.0
 uvicorn>=0.22.0
 pydantic>=1.10.0
+
+# Environment Variables and Testing
+python-dotenv>=1.0.0
+pytest>=7.0.0
