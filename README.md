@@ -210,7 +210,7 @@ All model notebooks in this project now include a comprehensive set of evaluatio
 Fraud detection is a highly imbalanced classification problem. Relying on accuracy alone can be misleading, as a model could predict all transactions as legitimate and still achieve high accuracy. Therefore, precision, recall, F1, and ROC-AUC are prioritized to ensure both high fraud detection and minimal disruption to legitimate transactions.
 
 ### Harmonized Evaluation Across Models
-- All model notebooks (Random Forest, AdaBoost, CatBoost, XGBoost, LightGBM, and Cross-Validation) now include code and markdown cells for these metrics.
+- All model notebooks (Random Forest, AdaBoost, CatBoost, XGBoost, LightGBn) now include code and markdown cells for these metrics.
 - This ensures consistent, interpretable, and business-relevant evaluation throughout the project.
 - The approach supports robust model comparison and transparent reporting for stakeholders.
 
@@ -350,97 +350,6 @@ With a **96% AUC score**, this model provides:
    - Your script in `app/main.py` should use `boto3` to download input data from S3 and upload results back to S3.
 
 ---
-
-## 📦 Requirements
-
-### 🐍 Python Environment
-```txt
-Python >= 3.7
-```
-
-### 📚 Core Libraries
-```txt
-# Data Processing & Analysis
-pandas >= 1.3.0
-numpy >= 1.21.0
-
-# Visualization
-matplotlib >= 3.4.0
-seaborn >= 0.11.0
-plotly >= 5.0.0
-
-# Machine Learning
-scikit-learn >= 1.0.0
-
-# Gradient Boosting Frameworks
-lightgbm >= 3.2.0
-xgboost >= 1.4.0
-catboost >= 1.0.0
-
-# Jupyter Environment
-jupyter >= 1.0.0
-ipykernel >= 6.0.0
-```
-
-### 💾 System Requirements
-- **RAM:** Minimum 8GB (16GB recommended for full dataset)
-- **Storage:** ~2GB free space for datasets and model outputs
-- **CPU:** Multi-core processor recommended for cross-validation
-- **OS:** Windows 10+, macOS 10.14+, or Linux Ubuntu 18.04+
-
-### 🔧 Optional Dependencies
-```txt
-# Enhanced Performance
-numba >= 0.53.0      # Accelerated numerical computations
-joblib >= 1.0.0      # Parallel processing
-
-# Advanced Visualization  
-shap >= 0.39.0       # Model explainability
-lime >= 0.2.0        # Local interpretable model explanations
-
-# Model Monitoring
-mlflow >= 1.18.0     # Experiment tracking
-wandb >= 0.12.0      # Weights & Biases integration
-```
-
----
-
-## 🔗 References
-
-### 📊 Dataset & Research
-1. **[Credit Card Fraud Detection Database](https://www.kaggle.com/mlg-ulb/creditcardfraud)** - Anonymized credit card transactions labeled as fraudulent or genuine
-2. **[Principal Component Analysis](https://en.wikipedia.org/wiki/Principal_component_analysis)** - Wikipedia comprehensive guide to PCA methodology
-3. **[ROC-AUC Characteristics](https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve)** - Receiver Operating Characteristic and Area Under Curve metrics
-
-### 🤖 Machine Learning Documentation
-4. **[Random Forest Classifier](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)** - Scikit-learn Random Forest implementation
-5. **[AdaBoost Classifier](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html)** - Scikit-learn AdaBoost documentation
-6. **[CatBoost Documentation](https://catboost.ai/)** - Official CatBoost gradient boosting library
-7. **[XGBoost Python API](http://xgboost.readthedocs.io/en/latest/python/python_api.html)** - XGBoost Python implementation guide
-8. **[LightGBM Python Package](https://github.com/Microsoft/LightGBM/tree/master/python-package)** - Microsoft LightGBM Python implementation
-9. **[LightGBM Research Paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/11/lightgbm.pdf)** - Original LightGBM algorithm research paper
-
-### 📚 Additional Resources
-10. **[Scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)** - Comprehensive machine learning library documentation
-11. **[Imbalanced-learn Documentation](https://imbalanced-learn.org/)** - Specialized library for imbalanced dataset handling
-12. **[Cross-Validation Techniques](https://scikit-learn.org/stable/modules/cross_validation.html)** - Model validation strategies and best practices
-
-### 🎓 Academic References
-- Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson and Gianluca Bontempi. **Calibrating Probability with Undersampling for Unbalanced Classification.** In Symposium on Computational Intelligence and Data Mining (CIDM), IEEE, 2015
-- Dal Pozzolo, Andrea; Caelen, Olivier; Le Borgne, Yann-Ael; Waterschoot, Serge; Bontempi, Gianluca. **Learned lessons in credit card fraud detection from a practitioner perspective**, Expert systems with applications, 41,4, 4915-4928, 2014
-
----
-
-## 🎯 Project Status
-
-✅ **Complete** - All analysis finished, model optimized, documentation updated
-
-**📊 Final Performance:** 96% AUC Score achieved with XGBoost
-
-**🚀 Production Ready:** Model optimized for real-world deployment
-
----
-
 ## 🛠️ Production/Batch Inference & AWS Integration (2025 Update)
 
 This project is now structured for batch or event-driven inference, suitable for AWS SageMaker, Batch, or Lambda workflows. The REST API (FastAPI) code has been removed for a simpler, script-based deployment.
@@ -537,3 +446,94 @@ Transaction_Time,V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V11,V12,V13,V14,V15,V16,V17,V18,
 12345,0.1,0.2,...,100.0
 67890,-0.5,0.3,...,250.0
 ```
+---
+
+## 📦 Requirements
+
+### 🐍 Python Environment
+```txt
+Python >= 3.7
+```
+
+### 📚 Core Libraries
+```txt
+# Data Processing & Analysis
+pandas >= 1.3.0
+numpy >= 1.21.0
+
+# Visualization
+matplotlib >= 3.4.0
+seaborn >= 0.11.0
+plotly >= 5.0.0
+
+# Machine Learning
+scikit-learn >= 1.0.0
+
+# Gradient Boosting Frameworks
+lightgbm >= 3.2.0
+xgboost >= 1.4.0
+catboost >= 1.0.0
+
+# Jupyter Environment
+jupyter >= 1.0.0
+ipykernel >= 6.0.0
+```
+
+### 💾 System Requirements
+- **RAM:** Minimum 8GB (16GB recommended for full dataset)
+- **Storage:** ~2GB free space for datasets and model outputs
+- **CPU:** Multi-core processor recommended for cross-validation
+- **OS:** Windows 10+, macOS 10.14+, or Linux Ubuntu 18.04+
+
+### 🔧 Optional Dependencies
+```txt
+# Enhanced Performance
+numba >= 0.53.0      # Accelerated numerical computations
+joblib >= 1.0.0      # Parallel processing
+
+# Advanced Visualization  
+shap >= 0.39.0       # Model explainability
+lime >= 0.2.0        # Local interpretable model explanations
+
+# Model Monitoring
+mlflow >= 1.18.0     # Experiment tracking
+wandb >= 0.12.0      # Weights & Biases integration
+```
+
+---
+
+## 🔗 References
+
+### 📊 Dataset & Research
+1. **[Credit Card Fraud Detection Database](https://www.kaggle.com/mlg-ulb/creditcardfraud)** - Anonymized credit card transactions labeled as fraudulent or genuine
+2. **[Principal Component Analysis](https://en.wikipedia.org/wiki/Principal_component_analysis)** - Wikipedia comprehensive guide to PCA methodology
+3. **[ROC-AUC Characteristics](https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve)** - Receiver Operating Characteristic and Area Under Curve metrics
+
+### 🤖 Machine Learning Documentation
+4. **[Random Forest Classifier](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)** - Scikit-learn Random Forest implementation
+5. **[AdaBoost Classifier](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html)** - Scikit-learn AdaBoost documentation
+6. **[CatBoost Documentation](https://catboost.ai/)** - Official CatBoost gradient boosting library
+7. **[XGBoost Python API](http://xgboost.readthedocs.io/en/latest/python/python_api.html)** - XGBoost Python implementation guide
+8. **[LightGBM Python Package](https://github.com/Microsoft/LightGBM/tree/master/python-package)** - Microsoft LightGBM Python implementation
+9. **[LightGBM Research Paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/11/lightgbm.pdf)** - Original LightGBM algorithm research paper
+
+### 📚 Additional Resources
+10. **[Scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)** - Comprehensive machine learning library documentation
+11. **[Imbalanced-learn Documentation](https://imbalanced-learn.org/)** - Specialized library for imbalanced dataset handling
+12. **[Cross-Validation Techniques](https://scikit-learn.org/stable/modules/cross_validation.html)** - Model validation strategies and best practices
+
+### 🎓 Academic References
+- Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson and Gianluca Bontempi. **Calibrating Probability with Undersampling for Unbalanced Classification.** In Symposium on Computational Intelligence and Data Mining (CIDM), IEEE, 2015
+- Dal Pozzolo, Andrea; Caelen, Olivier; Le Borgne, Yann-Ael; Waterschoot, Serge; Bontempi, Gianluca. **Learned lessons in credit card fraud detection from a practitioner perspective**, Expert systems with applications, 41,4, 4915-4928, 2014
+
+---
+
+## 🎯 Project Status
+
+✅ **Complete** - All analysis finished, model optimized, documentation updated
+
+**📊 Final Performance:** 96% AUC Score achieved with XGBoost
+
+**🚀 Production Ready:** Model optimized for real-world deployment
+
+---
