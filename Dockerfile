@@ -23,9 +23,14 @@ RUN pip install --no-cache-dir --upgrade pip \
 COPY . .
 
 
-# Environment variables for AWS (can be overridden at runtime)
+
+# Environment variables for AWS (set at runtime for manual credential input)
 ENV AWS_DEFAULT_REGION=us-east-1
 ENV AWS_REGION=us-east-1
+# Optionally set these at runtime:
+# ENV AWS_ACCESS_KEY_ID=your-access-key-id
+# ENV AWS_SECRET_ACCESS_KEY=your-secret-access-key
+# ENV AWS_SESSION_TOKEN=your-session-token
 
 # Expose a port (for web apps or APIs, e.g., FastAPI/Flask)
 # EXPOSE 8080
