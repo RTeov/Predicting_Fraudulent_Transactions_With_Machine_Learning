@@ -317,20 +317,57 @@ With a **96% AUC score**, this model provides:
 
 ## 🚀 How to Run the Project
 
-### ▶️ Run Locally (Batch Inference)
+
+
+---
+
+
+> **IMPORTANT: Input Data Requirement**
+>
+> Before running any batch scripts or the aggregation script, you must have the input data file available at the location specified by `input_data` in your `config.yaml` (default: `Input_Data/creditcard_post_correlation.csv`).
+>
+> - If this file is missing, the batch scripts will fail.
+> - Ensure the file is present and contains the required columns as described in the [Example Input Data Format](#example-input-data-format) section below.
+
+> **For SageMaker deployment:**
+> - You must upload `creditcard_post_correlation.csv` to an S3 bucket.
+> - In your `config.yaml`, set the `input_data` path to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
+> - SageMaker jobs will read the input data directly from S3.
+
+> **To generate this file:** You must run the following notebooks in order:
+>   1. `1_Data_Preparation.ipynb`
+>   2. `2_Data_Exploration.ipynb`
+>   3. `3_Features_Correlation.ipynb`
+>   These notebooks will process the raw data and produce `creditcard_post_correlation.csv` in the `Input_Data/` folder.
+> - Alternatively, obtain the file from your data pipeline if available.
+
+### ▶️ Run Locally (Batch Inference & Aggregation)
 
 1. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 2. **Prepare your input data:**
-   - Place your input CSV (with the required columns) in the project directory.
-3. **Edit `app/main.py`:**
-   - Implement your batch logic (e.g., load input CSV, run predictions, save output CSV).
-4. **Run the batch script:**
+   - Place your input CSV (with the required columns) in the location specified by `input_data` in `config.yaml`.
+3. **Edit `config.yaml`:**
+   - Set all paths, model files, and AWS credentials as needed.
+   - Set `output_dir` to the directory where you want all predictions and the aggregated results to be saved.
+   - Select which models to run in `models_to_run`.
+4. **Run all batch scripts and aggregate results:**
    ```bash
-   python app/main.py
+   python app/random_forest_batch.py
+   python app/adaboost_batch.py
+   python app/catboost_batch.py
+   python app/xgboost_batch.py
+   python app/lightgbm_batch.py
+   python app/aggregate_results.py
    ```
+   Or, if using Docker:
+   ```bash
+   docker build -t fraud-batch .
+   docker run --rm -v $(pwd)/output:/app/output fraud-batch
+   ```
+   (All outputs will be in the `output_dir` specified in your config.)
 
 
 ---
@@ -436,6 +473,7 @@ log_level: INFO
 
 ---
 
+
 ### ☁️ Run on AWS (SageMaker Batch/Processing)
 
 1. **Build Docker image:**
@@ -451,8 +489,10 @@ log_level: INFO
    docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
    ```
 3. **Launch a SageMaker Processing or Batch Transform job:**
-   - Use the ECR image and specify S3 input/output locations.
-   - Your script in `app/main.py` should use `boto3` to download input data from S3 and upload results back to S3.
+   - Use the ECR image and specify S3 input/output locations in your SageMaker job definition.
+   - The container will run all batch scripts and aggregate results automatically (see Dockerfile entrypoint).
+   - All outputs will be written to the S3 location mapped to your `output_dir` in `config.yaml`.
+   - You can pass AWS credentials via `config.yaml` or as environment variables at job launch if needed.
 
 ---
 ## 🛠️ Production/Batch Inference & AWS Integration (2025 Update)
