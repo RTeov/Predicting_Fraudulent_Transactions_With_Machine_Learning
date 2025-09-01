@@ -90,7 +90,7 @@ This project follows industry best practices with a systematic approach:
 ```
 Credit_Card_Fraud_Detection_Predictive_Model/
 │
-├── 📔 Analysis Notebooks (Sequential Workflow)
+├── notebooks/                                     # Jupyter notebooks for local development and exploration only
 │   ├── 1_Data_Preparation.ipynb                    # Data cleaning & preprocessing
 │   ├── 2_Data_Exploration.ipynb                    # EDA & statistical analysis  
 │   ├── 3_Features_Correlation.ipynb                # Feature selection & correlation
@@ -101,6 +101,7 @@ Credit_Card_Fraud_Detection_Predictive_Model/
 │   ├── 8_LightGBM.ipynb                           # LightGBM single model
 │   ├── 9_Training and validation using cross-validation.ipynb  # Cross-validation
 │   └── 10_Conclusions and Final Analysis.ipynb     # Results & recommendations
+│   └── README.md                                   # Notebooks folder info
 │
 ├── 🗂️ Input_Data/                                  # Dataset storage
 │   ├── creditcard.csv                              # Original dataset
@@ -360,7 +361,7 @@ app/
     main.py           # Batch/script entrypoint (edit for your workflow)
     models/
         predictor.py  # Model loading and batch prediction logic
-        schemas.py    # (Optional) Input schema placeholder
+- **📊 Comprehensive Analysis**: 10 detailed Jupyter notebooks (now in `notebooks/` folder) covering the complete ML pipeline (for local development only)
     __init__.py
     models/__init__.py
 
