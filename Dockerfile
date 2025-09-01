@@ -38,7 +38,7 @@ ENV AWS_REGION=us-east-1
 
 
 # ENTRYPOINT for batch or script-based inference
-ENTRYPOINT ["sh", "-c", "python app/random_forest_batch.py && python app/adaboost_batch.py && python app/catboost_batch.py && python app/xgboost_batch.py && python app/lightgbm_batch.py"]
+ENTRYPOINT ["sh", "-c", "python app/random_forest_batch.py && python app/adaboost_batch.py && python app/catboost_batch.py && python app/xgboost_batch.py && python app/lightgbm_batch.py && python app/aggregate_results.py"]
 
 # For AWS Lambda (if using AWS Lambda with container images)
 # Uncomment the following line and set your handler if using AWS Lambda
