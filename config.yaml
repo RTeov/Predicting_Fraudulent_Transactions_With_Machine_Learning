@@ -13,7 +13,8 @@ environment: local  # or 'aws'
 # Input/output paths for batch script
 input_data: "Input_Data/creditcard_post_correlation.csv"  # Local path or S3 URI
 # All model scripts will write to this directory with unique filenames
-output_dir: "output/"    # Directory for all model predictions and aggregation
+# For SageMaker or cloud, you can use an S3 URI (e.g., s3://your-bucket/output/)
+output_dir: "output/"    # Directory or S3 URI for all model predictions and aggregation
 yaml_output: "output/predictions.csv"    # Default output, but each model will write its own file
 
 # Model settings (set per model if needed)
