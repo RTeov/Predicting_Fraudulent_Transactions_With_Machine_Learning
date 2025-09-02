@@ -177,6 +177,14 @@ The comprehensive EDA includes:
 
 | XGBoost                  | 0.96          | Excellent         | High accuracy, feature importance |
 
+## 🛠️ Production/Batch Inference & AWS Integration
+
+## Cloud Deployment
+
+**Note:** The cloud deployment for this project is set up in advance for Amazon SageMaker. All deployment scripts, configurations, and model export formats are designed to be compatible with SageMaker's managed machine learning environment. If you wish to deploy to a different cloud provider, additional modifications may be required.
+
+---
+
 ## � How to Run the Project
 
 This section provides a clear, step-by-step guide for running the project both locally and on AWS SageMaker.
@@ -453,65 +461,6 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
 
    ---
 
----
-## 🛠️ Production/Batch Inference & AWS Integration (2025 Update)
-
-## Cloud Deployment
-
-**Note:** The cloud deployment for this project is set up in advance for Amazon SageMaker. All deployment scripts, configurations, and model export formats are designed to be compatible with SageMaker's managed machine learning environment. If you wish to deploy to a different cloud provider, additional modifications may be required.
-
-
-### 🗂️ Project Structure (Key Folders)
-```
-app/
-   adaboost_batch.py         # AdaBoost batch inference script
-   aggregate_results.py      # Aggregates results from all models
-   catboost_batch.py         # CatBoost batch inference script
-   lightgbm_batch.py         # LightGBM batch inference script
-   random_forest_batch.py    # Random Forest batch inference script
-   xgboost_batch.py          # XGBoost batch inference script
-   __init__.py
-   # (main.py has been removed; use the above scripts for batch processing)
-   # models/ (if present): model loading utilities
-
-requirements.txt      # Core, ML, and boto3 dependencies
-Dockerfile            # Runs batch scripts for inference
-.env                  # Environment variables (e.g., model path)
-tests/                # Placeholder for batch/boto3-based tests
-```
-
----
-
-## 🚀 Example AWS CLI Commands
-
-**Build, tag, and push your Docker image to ECR:**
-```bash
-# Build Docker image
-docker build -t fraud-batch .
-
-# Authenticate Docker to your ECR registry
-aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
-
-# Tag the image for ECR
-docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-
-# Push the image to ECR
-docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-```
-
-**Launch a SageMaker Processing or Batch Transform job using your image** (see AWS docs for details).
-
----
-
-## 📥 Example Input Data Format
-
-Your batch script expects input data as a CSV file with the following columns:
-
-```csv
-Transaction_Time,V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V11,V12,V13,V14,V15,V16,V17,V18,V19,V20,V21,V22,V23,V24,V25,V26,V27,V28,Transaction_Amount
-12345,0.1,0.2,...,100.0
-67890,-0.5,0.3,...,250.0
-```
 ---
 
 ## 📦 Requirements
