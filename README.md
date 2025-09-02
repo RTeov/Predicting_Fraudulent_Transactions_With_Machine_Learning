@@ -375,6 +375,11 @@ With a **96% AUC score**, this model provides:
 
 ---
 
+# Predicting Fraudulent Transactions With Machine Learning
+
+## Cloud Deployment
+
+**Note:** The cloud deployment for this project is set up in advance for Amazon SageMaker. All deployment scripts, configurations, and model export formats are designed to be compatible with SageMaker's managed machine learning environment. If you wish to deploy to a different cloud provider, additional modifications may be required.
 
 
 ## ☁️ AWS Credentials & Batch Inference Configuration
