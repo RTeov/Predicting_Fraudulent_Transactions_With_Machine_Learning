@@ -125,14 +125,6 @@ Credit_Card_Fraud_Detection_Predictive_Model/
 ### 📊 Core Transaction Features
 - **Transaction_Time:** Seconds elapsed between this transaction and the first transaction in the dataset
 - **Transaction_Amount:** Transaction amount in Euros
-- **Fraud_Flag:** Target variable (1 = fraud, 0 = legitimate transaction)
-
-### 🔐 Anonymized PCA Features
-- **V1-V28:** Principal components obtained with PCA transformation
-  - These features contain the main components of PCA transformation
-  - Original features anonymized due to confidentiality issues
-  - Each feature represents a linear combination of original transaction characteristics
-
 ### 🎯 Feature Engineering Insights
 - **Most Important Features:** V17, V12, V14, V10, V11, V16 (identified through feature importance analysis)
 - **Correlation Analysis:** Post-correlation feature set optimized for model performance
@@ -183,217 +175,90 @@ The comprehensive EDA includes:
 - **Strengths:** Built-in overfitting protection, minimal hyperparameter tuning
 - **Features:** Automatic categorical feature processing
 
-### 🚀 4. XGBoost Classifier
-- **Purpose:** High-performance gradient boosting framework
-- **Strengths:** Advanced regularization, parallel processing
-- **Optimization:** Comprehensive hyperparameter tuning with early stopping
-
-### 💡 5. LightGBM
-- **Purpose:** Fast, efficient gradient boosting
-- **Strengths:** Memory efficiency, faster training
-- **Implementation:** Both single model and cross-validation approaches
-
----
-
-
-## 📈 Evaluation Metrics (2025 Project Update)
-
-All model notebooks in this project now include a comprehensive set of evaluation metrics for fraud detection:
-
-- **Accuracy**: Overall proportion of correct predictions. Can be misleading for imbalanced data.
-- **Precision**: Proportion of predicted frauds that are actually fraud. Important for minimizing false positives.
-- **Recall (Sensitivity)**: Proportion of actual frauds correctly identified. Crucial for minimizing missed fraud.
-- **F1 Score**: Harmonic mean of precision and recall. Balances the trade-off, especially for imbalanced datasets.
-- **ROC-AUC Score**: Measures the model's ability to distinguish between classes across all thresholds. High values indicate strong discrimination.
-- **Classification Report**: Detailed breakdown of precision, recall, F1-score, and support for each class.
-
-### Why These Metrics?
-Fraud detection is a highly imbalanced classification problem. Relying on accuracy alone can be misleading, as a model could predict all transactions as legitimate and still achieve high accuracy. Therefore, precision, recall, F1, and ROC-AUC are prioritized to ensure both high fraud detection and minimal disruption to legitimate transactions.
-
-### Harmonized Evaluation Across Models
-- All model notebooks (Random Forest, AdaBoost, CatBoost, XGBoost, LightGBn) now include code and markdown cells for these metrics.
-- This ensures consistent, interpretable, and business-relevant evaluation throughout the project.
-- The approach supports robust model comparison and transparent reporting for stakeholders.
-
-### 📊 Visualization Tools
-- **Confusion Matrix:** True/false positive and negative visualization
-- **ROC Curves:** Model discrimination capability assessment
-- **Feature Importance:** Identification of most predictive features
-- **Cross-Validation Curves:** Model stability assessment
-
-### 💡 Business Metrics
-- **False Positive Rate:** Legitimate transactions incorrectly flagged
-- **False Negative Rate:** Fraud transactions missed by the model
-- **Cost-Benefit Analysis:** Financial impact assessment
-
----
-
-## 🏅 Results & Performance
-
-### 🎯 Model Performance Comparison
-
-| Model                    | ROC-AUC Score | Performance Level | Key Strengths |
-|--------------------------|---------------|-------------------|---------------|
 | XGBoost                  | 0.96          | Excellent         | High accuracy, feature importance |
-| LightGBM (Single)        | 0.95          | Very Good         | Fast training, memory efficient |
-| CatBoost                 | 0.86          | Good              | Minimal tuning required |
-| Random Forest            | 0.85          | Good              | Robust baseline, interpretable |
-| AdaBoost                 | 0.81          | Satisfactory      | Simple implementation |
 
-### 🏆 Champion Model: XGBoost
+## � How to Run the Project
 
-**🎯 Performance Metrics:**
-- **ROC-AUC Score:** 0.96 (Excellent)
-- **Cross-Validation:** 5-fold validation for robust performance
-- **Consistency:** Stable performance across all validation folds
-- **Training Efficiency:** Optimized for speed and memory usage
-
-**🔑 Key Success Factors:**
-- Advanced hyperparameter optimization
-- Robust cross-validation methodology  
-- Effective feature selection post-correlation analysis
-- Proper handling of class imbalance
-
-### 📊 Feature Importance Analysis
-
-**Top 10 Most Important Features:**
-1. **V17** - Highest predictive power for fraud detection
-2. **V12** - Strong correlation with fraudulent patterns
-3. **V14** - Key discriminator between fraud/legitimate
-4. **V10** - Important for transaction classification
-5. **V11** - Significant fraud indicator
-6. **V16** - Strong predictive feature
-7. **V18** - Additional fraud pattern recognition
-8. **V3** - Contributing factor to fraud detection
-9. **V7** - Supporting feature for classification
-10. **Transaction_Amount** - Transaction size patterns
-
-### 🎯 Business Impact Metrics
-
-**Fraud Detection Effectiveness:**
-- **True Positive Rate:** ~96% (fraud correctly identified)
-- **False Positive Rate:** <4% (legitimate transactions flagged)
-- **Precision:** High accuracy in fraud predictions
-- **Recall:** Excellent fraud detection coverage
-
-**💰 Financial Impact:**
-- **Potential Loss Prevention:** Up to 95% reduction in fraud losses
-- **Customer Experience:** Minimal disruption to legitimate transactions  
-- **Operational Efficiency:** Real-time processing capability
-- **Compliance:** Enhanced regulatory compliance for fraud prevention
+This section provides a clear, step-by-step guide for running the project both locally and on AWS SageMaker.
 
 ---
 
-## 💼 Business Implications
+### 1. Prepare Input Data
 
-### 🎯 Fraud Detection Effectiveness
-With a **96% AUC score**, this model provides:
-- **High Accuracy:** Correctly identifies fraudulent transactions while minimizing false positives
-- **Real-time Application:** Fast prediction capability suitable for online transaction processing
-- **Cost Reduction:** Significant reduction in financial losses from undetected fraud
-- **Customer Experience:** Minimized legitimate transaction rejections
-
-### 📈 Risk Management Benefits
-- **Proactive Detection:** Early identification of suspicious transaction patterns
-- **Scalability:** Model handles large transaction volumes efficiently
-- **Adaptability:** Cross-validation ensures robust performance across different data patterns
-- **Compliance:** Enhanced ability to meet regulatory requirements for fraud prevention
-
-### 🚀 Implementation Strategy
-
-**Production Deployment Recommendations:**
-1. **Real-time Scoring:** Deploy for live transaction monitoring
-2. **Risk Thresholds:** Implement tiered response system (block/review/allow)
-3. **Monitoring Dashboard:** Track model performance and fraud trends
-4. **Feedback Loop:** Incorporate investigation outcomes for continuous improvement
-
-**Operational Excellence:**
-- **Model Monitoring:** Continuous performance tracking and alerting
-- **Data Pipeline:** Automated feature engineering and quality checks
-- **A/B Testing:** Gradual rollout with performance measurement
-- **Retraining Pipeline:** Automated model updates with new fraud patterns
+- Ensure you have the processed input file: `Input_Data/creditcard_post_correlation.csv`.
+- If you do not have this file, generate it by running the following notebooks in order:
+  1. `notebooks/1_Data_Preparation.ipynb`
+  2. `notebooks/2_Data_Exploration.ipynb`
+  3. `notebooks/3_Features_Correlation.ipynb`
+- Alternatively, obtain the file from your data pipeline.
 
 ---
 
-## 🚀 How to Run the Project
+### 2. Configure the Project
 
-
+- Edit `config.yaml` to set:
+  - `input_data`: Path to your input CSV (local path or S3 URI)
+  - `output_dir`: Directory or S3 URI for predictions and results
+  - Model paths and AWS credentials as needed
+- Make sure your AWS credentials (in `config.yaml` or as environment variables) have permission to access the specified S3 buckets if using cloud features.
 
 ---
 
+### 3. Install Dependencies
 
-> **IMPORTANT: Input Data Requirement**
->
-> Before running any batch scripts or the aggregation script, you must have the input data file available at the location specified by `input_data` in your `config.yaml` (default: `Input_Data/creditcard_post_correlation.csv`).
->
-> - If this file is missing, the batch scripts will fail.
-> - Ensure the file is present and contains the required columns as described in the [Example Input Data Format](#example-input-data-format) section below.
+Install all required Python packages:
+```bash
+pip install -r requirements.txt
+```
 
-> - You must upload `creditcard_post_correlation.csv` to an S3 bucket.
-> - In your `config.yaml`, set the `input_data` path to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
-> - SageMaker jobs will read the input data directly from S3.
-> - You must upload `creditcard_post_correlation.csv` to an S3 bucket.
-> - In your `config.yaml`, set the `input_data` path to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
-> - SageMaker jobs will read the input data directly from S3.
-> - **Important:** Make sure your AWS credentials (in `config.yaml` or as environment variables) have permission to read from the S3 bucket you specify for `input_data` and `output_dir`.
+---
 
-> **To generate this file:** You must run the following notebooks in order:
->   1. `1_Data_Preparation.ipynb`
->   2. `2_Data_Exploration.ipynb`
->   3. `3_Features_Correlation.ipynb`
->   These notebooks will process the raw data and produce `creditcard_post_correlation.csv` in the `Input_Data/` folder.
-> - Alternatively, obtain the file from your data pipeline if available.
+### 4. Run Batch Inference & Aggregation Locally
 
-### ▶️ Run Locally (Batch Inference & Aggregation)
+Run the batch scripts to generate predictions and aggregate results:
+```bash
+python app/random_forest_batch.py
+python app/adaboost_batch.py
+python app/catboost_batch.py
+python app/xgboost_batch.py
+python app/lightgbm_batch.py
+python app/aggregate_results.py
+```
+All outputs will be saved in the `output_dir` specified in your config.
 
-1. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. **Prepare your input data:**
-   - Place your input CSV (with the required columns) in the location specified by `input_data` in `config.yaml`.
-3. **Edit `config.yaml`:**
-   - Set all paths, model files, and AWS credentials as needed.
-   - Set `output_dir` to the directory where you want all predictions and the aggregated results to be saved.
-   - Select which models to run in `models_to_run`.
-4. **Run all batch scripts and aggregate results:**
-   ```bash
-   python app/random_forest_batch.py
-   python app/adaboost_batch.py
-   python app/catboost_batch.py
-   python app/xgboost_batch.py
-   python app/lightgbm_batch.py
-   python app/aggregate_results.py
-   ```
-   Or, if using Docker:
+Or, using Docker:
+```bash
+docker build -t fraud-batch .
+docker run --rm -v %cd%/output:/app/output fraud-batch
+```
+*(On Windows, use `%cd%` instead of `$(pwd)` for the current directory.)*
+
+---
+
+### 5. Run on AWS SageMaker (Cloud Batch Inference)
+
+1. **Upload input data to S3:**
+   - Upload `creditcard_post_correlation.csv` to your S3 bucket.
+   - Set `input_data` in `config.yaml` to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
+2. **Build and push Docker image:**
    ```bash
    docker build -t fraud-batch .
-   docker run --rm -v $(pwd)/output:/app/output fraud-batch
+   aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
+   docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+   docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
    ```
-   (All outputs will be in the `output_dir` specified in your config.)
-
+3. **Launch a SageMaker Processing or Batch Transform job:**
+   - Use the ECR image and specify S3 input/output locations in your SageMaker job definition.
+   - The container will run all batch scripts and aggregate results automatically.
+   - All outputs will be written to the S3 location mapped to your `output_dir` in `config.yaml`.
+   - Pass AWS credentials via `config.yaml` or as environment variables if needed.
 
 ---
 
-
-
-## ☁️ AWS Credentials & Batch Inference Configuration
-
-**Manual Credentials (for local Docker or custom cloud runs):**
-
-- Provide AWS credentials in `config.yaml` under the `aws_credentials` section:
-
-   ```yaml
-   aws_credentials:
-      aws_access_key_id: "YOUR_AWS_ACCESS_KEY_ID"
-      aws_secret_access_key: "YOUR_AWS_SECRET_ACCESS_KEY"
-      aws_session_token: "YOUR_AWS_SESSION_TOKEN"  # Required only for temporary credentials (leave blank for long-term keys)
-   ```
-
-- These credentials are set as environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`) at runtime by the batch scripts.
-- Alternatively, you can set them as Docker environment variables at runtime:
-
-   ```sh
+**Note:**
+- All configuration is managed via `config.yaml`.
+- For more details on input data format, see the "Example Input Data Format" section below.
+- For troubleshooting or advanced usage, refer to the comments in each batch script and the Dockerfile.
    docker run -e AWS_ACCESS_KEY_ID=your-key -e AWS_SECRET_ACCESS_KEY=your-secret -e AWS_SESSION_TOKEN=your-token fraud-batch
    ```
 
@@ -442,14 +307,6 @@ aws:
 
    ---
 
-   ### ⚠️ Input Data Requirement
-
-   Before running any batch scripts or the aggregation script, you must have the input data file available at the location specified by `input_data` in your `config.yaml` (default: `Input_Data/creditcard_post_correlation.csv`).
-
-   - If this file is missing, the batch scripts will fail.
-   - Ensure the file is present and contains the required columns as described in the [Example Input Data Format](#example-input-data-format) section below.
-   - **For SageMaker/cloud:** Upload `creditcard_post_correlation.csv` to an S3 bucket and set the `input_data` path in `config.yaml` to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
-   - **Credentials:** Your AWS credentials (in `config.yaml` or as environment variables) must have permission to read from the S3 bucket you specify for `input_data` and `output_dir`.
 
    **To generate this file:** Run the following notebooks in order:
    1. `1_Data_Preparation.ipynb`
@@ -500,9 +357,88 @@ aws:
       - Ensure your credentials have permission to read/write to the specified S3 locations.
    3. **Build and push Docker image:**
       ```bash
+   ## 🚀 How to Run the Project
+
+   This section provides a clear, step-by-step guide for running the project both locally and on AWS SageMaker.
+
+   ---
+
+   ### 1. Prepare Input Data
+
+   - Ensure you have the processed input file: `Input_Data/creditcard_post_correlation.csv`.
+   - If you do not have this file, generate it by running the following notebooks in order:
+     1. `notebooks/1_Data_Preparation.ipynb`
+     2. `notebooks/2_Data_Exploration.ipynb`
+     3. `notebooks/3_Features_Correlation.ipynb`
+   - Alternatively, obtain the file from your data pipeline.
+
+   ---
+
+   ### 2. Configure the Project
+
+   - Edit `config.yaml` to set:
+     - `input_data`: Path to your input CSV (local path or S3 URI)
+     - `output_dir`: Directory or S3 URI for predictions and results
+     - Model paths and AWS credentials as needed
+   - Make sure your AWS credentials (in `config.yaml` or as environment variables) have permission to access the specified S3 buckets if using cloud features.
+
+   ---
+
+   ### 3. Install Dependencies
+
+   Install all required Python packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   ---
+
+   ### 4. Run Batch Inference & Aggregation Locally
+
+   Run the batch scripts to generate predictions and aggregate results:
+   ```bash
+   python app/random_forest_batch.py
+   python app/adaboost_batch.py
+   python app/catboost_batch.py
+   python app/xgboost_batch.py
+   python app/lightgbm_batch.py
+   python app/aggregate_results.py
+   ```
+   All outputs will be saved in the `output_dir` specified in your config.
+
+   Or, using Docker:
+   ```bash
+   docker build -t fraud-batch .
+   docker run --rm -v %cd%/output:/app/output fraud-batch
+   ```
+   *(On Windows, use `%cd%` instead of `$(pwd)` for the current directory.)*
+
+   ---
+
+   ### 5. Run on AWS SageMaker (Cloud Batch Inference)
+
+   1. **Upload input data to S3:**
+      - Upload `creditcard_post_correlation.csv` to your S3 bucket.
+      - Set `input_data` in `config.yaml` to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
+   2. **Build and push Docker image:**
+      ```bash
       docker build -t fraud-batch .
-      # Authenticate Docker to ECR
       aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
+      docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+      docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+      ```
+   3. **Launch a SageMaker Processing or Batch Transform job:**
+      - Use the ECR image and specify S3 input/output locations in your SageMaker job definition.
+      - The container will run all batch scripts and aggregate results automatically.
+      - All outputs will be written to the S3 location mapped to your `output_dir` in `config.yaml`.
+      - Pass AWS credentials via `config.yaml` or as environment variables if needed.
+
+   ---
+
+   **Note:**
+   - All configuration is managed via `config.yaml`.
+   - For more details on input data format, see the "Example Input Data Format" section below.
+   - For troubleshooting or advanced usage, refer to the comments in each batch script and the Dockerfile.
       # Tag and push
       docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
       docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
@@ -541,40 +477,6 @@ Dockerfile            # Runs batch scripts for inference
 .env                  # Environment variables (e.g., model path)
 tests/                # Placeholder for batch/boto3-based tests
 ```
-
-### 🚀 How to Run Batch Inference
-
-1. **Build Docker Image:**
-   ```bash
-   docker build -t fraud-batch .
-   ```
-2. **Run Batch Script:**
-   ```bash
-   docker run --env-file .env fraud-batch
-   ```
-   Edit `app/main.py` to implement your batch or event-driven logic (e.g., load data from S3, run predictions, save results).
-
-3. **AWS SageMaker/Boto3:**
-   - Use this image as a custom container for SageMaker Processing or Batch Transform jobs.
-   - Use `boto3` in your script to interact with S3 or other AWS services.
-
-### ⚡ AWS CLI and boto3 Requirements
-
-- **AWS CLI** is required on your local machine or CI/CD environment to build, tag, and push Docker images to Amazon ECR, and to manage AWS resources (ECR, SageMaker, S3, etc.).
-    - [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-    - Configure with `aws configure` before pushing images or running AWS commands.
-- **boto3** is required in your Python environment (and is included in `requirements.txt`) for any script that interacts with AWS services (e.g., S3, SageMaker) at runtime.
-    - No need to install AWS CLI inside your Docker image—only on your local/dev machine.
-
-
-
-### 📝 Batch Inference Scripts
-
-Batch processing is now handled by dedicated scripts in the `app/` directory (e.g., `random_forest_batch.py`, `adaboost_batch.py`, etc.).
-
-> **Note:** Project configuration is managed via `config.yaml`. Adjust paths, model settings, and AWS parameters there for both local and cloud runs.
-
-> **Note:** This project is optimized for batch/script-based inference and AWS SageMaker/Boto3 workflows. Use the provided batch scripts in `app/` for your workflow.
 
 ---
 
