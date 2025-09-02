@@ -522,20 +522,23 @@ aws:
 
 **Note:** The cloud deployment for this project is set up in advance for Amazon SageMaker. All deployment scripts, configurations, and model export formats are designed to be compatible with SageMaker's managed machine learning environment. If you wish to deploy to a different cloud provider, additional modifications may be required.
 
+
 ### 🗂️ Project Structure (Key Folders)
 ```
 app/
-    main.py           # Batch/script entrypoint (edit for your workflow)
-    models/
-        predictor.py  # Model loading and batch prediction logic
-- **📊 Comprehensive Analysis**: 10 detailed Jupyter notebooks (now in `notebooks/` folder) covering the complete ML pipeline (for local development only)
-    __init__.py
-    models/__init__.py
+   adaboost_batch.py         # AdaBoost batch inference script
+   aggregate_results.py      # Aggregates results from all models
+   catboost_batch.py         # CatBoost batch inference script
+   lightgbm_batch.py         # LightGBM batch inference script
+   random_forest_batch.py    # Random Forest batch inference script
+   xgboost_batch.py          # XGBoost batch inference script
+   __init__.py
+   # (main.py has been removed; use the above scripts for batch processing)
+   # models/ (if present): model loading utilities
 
-requirements.txt      # Now includes only core, ML, and boto3 dependencies
-Dockerfile            # Runs app/main.py for batch inference
+requirements.txt      # Core, ML, and boto3 dependencies
+Dockerfile            # Runs batch scripts for inference
 .env                  # Environment variables (e.g., model path)
-serve.py              # (To be deleted if present; not needed for batch)
 tests/                # Placeholder for batch/boto3-based tests
 ```
 
@@ -564,31 +567,14 @@ tests/                # Placeholder for batch/boto3-based tests
     - No need to install AWS CLI inside your Docker image—only on your local/dev machine.
 
 
-### 📝 Example Batch Script (app/main.py) with YAML Config
-```python
-import yaml
-import os
-# from app.models.predictor import get_model, predict_transaction
-# import boto3
-# import pandas as pd
 
-def load_config(config_path="../config.yaml"):
-   with open(os.path.join(os.path.dirname(__file__), config_path), "r") as f:
-      return yaml.safe_load(f)
+### 📝 Batch Inference Scripts
 
-if __name__ == "__main__":
-   config = load_config()
-   print("Loaded config:", config)
-   # Example: use config values
-   # input_data = config["input_data"]
-   # model_path = config["model_path"]
-   # Implement your batch logic here using config values
-   # For AWS: use config["aws"]["s3_bucket"] etc.
-```
+Batch processing is now handled by dedicated scripts in the `app/` directory (e.g., `random_forest_batch.py`, `adaboost_batch.py`, etc.).
 
-> **Note:** Project configuration is now managed via `config.yaml`. Adjust paths, model settings, and AWS parameters there for both local and cloud runs.
+> **Note:** Project configuration is managed via `config.yaml`. Adjust paths, model settings, and AWS parameters there for both local and cloud runs.
 
-> **Note:** This project is now optimized for batch/script-based inference and AWS SageMaker/Boto3 workflows. Edit `app/main.py` to implement your batch or event-driven logic.
+> **Note:** This project is optimized for batch/script-based inference and AWS SageMaker/Boto3 workflows. Use the provided batch scripts in `app/` for your workflow.
 
 ---
 
