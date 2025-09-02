@@ -439,10 +439,11 @@ aws:
    - All configuration is managed via `config.yaml`.
    - For more details on input data format, see the "Example Input Data Format" section below.
    - For troubleshooting or advanced usage, refer to the comments in each batch script and the Dockerfile.
-      # Tag and push
-      docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-      docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-      ```
+```bash
+# Tag and push
+docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
+```
    4. **Launch a SageMaker Processing or Batch Transform job:**
       - Use the ECR image and specify S3 input/output locations in your SageMaker job definition.
       - The container will run all batch scripts and aggregate results automatically (see Dockerfile entrypoint).
