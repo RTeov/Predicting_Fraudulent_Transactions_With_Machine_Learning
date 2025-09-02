@@ -259,8 +259,9 @@ docker run --rm -v %cd%/output:/app/output fraud-batch
 - All configuration is managed via `config.yaml`.
 - For more details on input data format, see the "Example Input Data Format" section below.
 - For troubleshooting or advanced usage, refer to the comments in each batch script and the Dockerfile.
-   docker run -e AWS_ACCESS_KEY_ID=your-key -e AWS_SECRET_ACCESS_KEY=your-secret -e AWS_SESSION_TOKEN=your-token fraud-batch
-   ```
+```bash
+docker run -e AWS_ACCESS_KEY_ID=your-key -e AWS_SECRET_ACCESS_KEY=your-secret -e AWS_SESSION_TOKEN=your-token fraud-batch
+```
 
 **About `aws_session_token`:**
 - If you are using temporary AWS credentials (such as those from an IAM role, federated login, or STS), you must provide `aws_session_token` as well.
