@@ -532,7 +532,7 @@ wandb >= 0.12.0      # Weights & Biases integration
 8. **[LightGBM Python Package](https://github.com/Microsoft/LightGBM/tree/master/python-package)** - Microsoft LightGBM Python implementation
 9. **[LightGBM Research Paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/11/lightgbm.pdf)** - Original LightGBM algorithm research paper
 
-### 📚 Additional Resources
+### Additional Resources
 10. **[Scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)** - Comprehensive machine learning library documentation
 11. **[Imbalanced-learn Documentation](https://imbalanced-learn.org/)** - Specialized library for imbalanced dataset handling
 12. **[Cross-Validation Techniques](https://scikit-learn.org/stable/modules/cross_validation.html)** - Model validation strategies and best practices
