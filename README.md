@@ -13,50 +13,50 @@
 
 # Predicting Fraudulent Transactions With Machine Learning
 
-🚀 **A comprehensive machine learning project for real-time fraud detection**
+**A comprehensive machine learning project for real-time fraud detection**
 
 This repository contains a complete end-to-end workflow for detecting fraudulent credit card transactions using advanced machine learning techniques. The project demonstrates industry-standard practices from data preparation through production-ready model deployment, with systematic evaluation of multiple algorithms and robust cross-validation methodology.
 
-## 🏆 Project Highlights
+## Project Highlights
 
-- **🎯 Exceptional Performance**: Achieved high AUC scores with multiple ensemble models
-- **📊 Comprehensive Analysis**: 10 detailed Jupyter notebooks covering the complete ML pipeline
-- **🔬 Multiple Algorithms**: Systematic evaluation of 5+ machine learning models
-- **✅ Production Ready**: Robust cross-validation and optimized hyperparameters
-- **📈 Business Impact**: Real-world applicable fraud detection system
-
----
-
-## 📋 Table of Contents
-
-- [🏆 Project Highlights](#-project-highlights)
-- [📖 Project Overview](#-project-overview)
-- [📊 Dataset](#-dataset)
-- [🔍 Project Structure](#-project-structure)
-- [⚙️ Features](#️-features)
-- [🔬 Exploratory Data Analysis](#-exploratory-data-analysis)
-- [🤖 Machine Learning Models](#-machine-learning-models)
-- [📈 Evaluation Metrics](#-evaluation-metrics)
-- [🏅 Results & Performance](#-results--performance)
-- [💼 Business Implications](#-business-implications)
-- [🚀 How to Run](#-how-to-run)
-- [📦 Requirements](#-requirements)
-- [🔗 References](#-references)
-- [👨‍💻 Author](#-author)
+- **Exceptional Performance**: Achieved high AUC scores with multiple ensemble models
+- **Comprehensive Analysis**: 10 detailed Jupyter notebooks covering the complete ML pipeline
+- **Multiple Algorithms**: Systematic evaluation of 5+ machine learning models
+- **Production Ready**: Robust cross-validation and optimized hyperparameters
+- **Business Impact**: Real-world applicable fraud detection system
 
 ---
 
-## 📖 Project Overview
+## Table of Contents
+
+- [Project Highlights](#project-highlights)
+- [Project Overview](#project-overview)
+- [Dataset](#dataset)
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Exploratory Data Analysis](#exploratory-data-analysis)
+- [Machine Learning Models](#machine-learning-models)
+- [Evaluation Metrics](#evaluation-metrics)
+- [Results & Performance](#results--performance)
+- [Business Implications](#business-implications)
+- [How to Run](#how-to-run)
+- [Requirements](#requirements)
+- [References](#references)
+- [Author](#author)
+
+---
+
+## Project Overview
 
 Credit card fraud detection represents one of the most critical applications of machine learning in the financial industry. This project demonstrates a complete, production-ready approach to building robust fraud detection systems.
 
-### 🎯 Objectives
+### Objectives
 - **Primary Goal**: Develop a highly accurate fraud detection model with minimal false positives
 - **Technical Goal**: Achieve >95% AUC score while maintaining computational efficiency
 - **Business Goal**: Create a production-ready system for real-time transaction screening
 - **Research Goal**: Compare multiple ML algorithms systematically using cross-validation
 
-### 🔄 Methodology
+### Methodology
 This project follows industry best practices with a systematic approach:
 1. **Comprehensive Data Analysis** - Understanding transaction patterns and fraud characteristics
 2. **Feature Engineering** - Correlation analysis and feature selection optimization
@@ -66,7 +66,7 @@ This project follows industry best practices with a systematic approach:
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 - **Source:** [Kaggle: Credit Card Fraud Detection Dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud)
 - **Description:** Real anonymized credit card transactions from European cardholders
@@ -77,7 +77,7 @@ This project follows industry best practices with a systematic approach:
   - **Fraudulent Transactions:** 0.17% (492 transactions)
 - **Challenge:** Highly imbalanced dataset requiring specialized techniques
 
-### 📁 Processed Datasets
+### Processed Datasets
 - `creditcard.csv` - Original raw dataset
 - `creditcard_cleaned.csv` - Post data preparation
 - `creditcard_post_exploration.csv` - After exploratory analysis
@@ -85,7 +85,7 @@ This project follows industry best practices with a systematic approach:
 
 ---
 
-## 🔍 Project Structure
+## Project Structure
 
 ```
 Credit_Card_Fraud_Detection_Predictive_Model/
@@ -103,81 +103,81 @@ Credit_Card_Fraud_Detection_Predictive_Model/
 │   └── 10_Conclusions and Final Analysis.ipynb     # Results & recommendations
 │   └── README.md                                   # Notebooks folder info
 │
-├── 🗂️ Input_Data/                                  # Dataset storage
+├── Input_Data/                                  # Dataset storage
 │   ├── creditcard.csv                              # Original dataset
 │   ├── creditcard_cleaned.csv                      # Processed data
 │   ├── creditcard_post_exploration.csv             # Post-EDA data
 │   └── creditcard_post_correlation.csv             # Final feature set
 │
-├── 📊 catboost_info/                               # CatBoost training logs
+├── catboost_info/                               # CatBoost training logs
 │   ├── catboost_training.json
 │   ├── learn_error.tsv
 │   └── time_left.tsv
 │
-├── 📋 Credit_Card_Fraud_Detection_Predictive_Model.ipynb  # Master notebook
-└── 📖 README.md                                    # This file
+├── Credit_Card_Fraud_Detection_Predictive_Model.ipynb  # Master notebook
+└── README.md                                    # This file
 ```
 
 ---
 
-## ⚙️ Features
+## Features
 
-### 📊 Core Transaction Features
+### Core Transaction Features
 - **Transaction_Time:** Seconds elapsed between this transaction and the first transaction in the dataset
 - **Transaction_Amount:** Transaction amount in Euros
-### 🎯 Feature Engineering Insights
+### Feature Engineering Insights
 - **Most Important Features:** V17, V12, V14, V10, V11, V16 (identified through feature importance analysis)
 - **Correlation Analysis:** Post-correlation feature set optimized for model performance
 - **Scaling:** Features properly normalized for optimal model performance
 
 ---
 
-## 🔬 Exploratory Data Analysis
+## Exploratory Data Analysis
 
 The comprehensive EDA includes:
 
-### 📈 Data Quality Assessment
+### Data Quality Assessment
 - **Missing Values Analysis:** Complete data integrity verification
 - **Duplicate Detection:** Identification and handling of duplicate transactions
 - **Outlier Analysis:** Statistical analysis of extreme values in transaction amounts
 
-### 📊 Class Imbalance Analysis
+### Class Imbalance Analysis
 - **Fraud Distribution:** Visualization of class imbalance (0.17% fraud rate)
 - **Transaction Patterns:** Time-based analysis of fraud vs. legitimate transactions
 - **Amount Analysis:** Statistical comparison of transaction amounts by fraud status
 
-### 🕐 Temporal Analysis
+### Temporal Analysis
 - **Time-based Patterns:** Transaction density analysis by hour
 - **Fraud Timing:** Peak fraud detection periods identification
 - **Weekly Patterns:** Day-of-week fraud occurrence analysis
 
-### 🔍 Feature Relationships
+### Feature Relationships
 - **Correlation Heatmaps:** Inter-feature correlation analysis
 - **Scatter Plot Analysis:** Fraud pattern visualization in feature space
 - **Distribution Analysis:** Feature distribution comparison between fraud/legitimate transactions
 
 ---
 
-## 🤖 Machine Learning Models
+## Machine Learning Models
 
-### 🌳 1. Random Forest Classifier
+### 1. Random Forest Classifier
 - **Purpose:** Baseline ensemble model for comparison
 - **Strengths:** Feature importance, robust to overfitting
 - **Implementation:** Grid search optimization with cross-validation
 
-### ⚡ 2. AdaBoost Classifier  
+### 2. AdaBoost Classifier  
 - **Purpose:** Adaptive boosting for improved performance on imbalanced data
 - **Strengths:** Focuses on misclassified examples
 - **Optimization:** Learning rate and n_estimators tuning
 
-### 🐱 3. CatBoost Classifier
+### 3. CatBoost Classifier
 - **Purpose:** Gradient boosting with efficient categorical feature handling
 - **Strengths:** Built-in overfitting protection, minimal hyperparameter tuning
 - **Features:** Automatic categorical feature processing
 
 | XGBoost                  | 0.96          | Excellent         | High accuracy, feature importance |
 
-## 🛠️ Production/Batch Inference & AWS Integration
+## Production/Batch Inference & AWS Integration
 
 ## Cloud Deployment
 
@@ -463,14 +463,14 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
 
 ---
 
-## 📦 Requirements
+## Requirements
 
-### 🐍 Python Environment
+### Python Environment
 ```txt
 Python >= 3.7
 ```
 
-### 📚 Core Libraries
+### Core Libraries
 ```txt
 # Data Processing & Analysis
 pandas >= 1.3.0
@@ -494,13 +494,13 @@ jupyter >= 1.0.0
 ipykernel >= 6.0.0
 ```
 
-### 💾 System Requirements
+### System Requirements
 - **RAM:** Minimum 8GB (16GB recommended for full dataset)
 - **Storage:** ~2GB free space for datasets and model outputs
 - **CPU:** Multi-core processor recommended for cross-validation
 - **OS:** Windows 10+, macOS 10.14+, or Linux Ubuntu 18.04+
 
-### 🔧 Optional Dependencies
+### Optional Dependencies
 ```txt
 # Enhanced Performance
 numba >= 0.53.0      # Accelerated numerical computations
@@ -517,14 +517,14 @@ wandb >= 0.12.0      # Weights & Biases integration
 
 ---
 
-## 🔗 References
+## References
 
-### 📊 Dataset & Research
+### Dataset & Research
 1. **[Credit Card Fraud Detection Database](https://www.kaggle.com/mlg-ulb/creditcardfraud)** - Anonymized credit card transactions labeled as fraudulent or genuine
 2. **[Principal Component Analysis](https://en.wikipedia.org/wiki/Principal_component_analysis)** - Wikipedia comprehensive guide to PCA methodology
 3. **[ROC-AUC Characteristics](https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve)** - Receiver Operating Characteristic and Area Under Curve metrics
 
-### 🤖 Machine Learning Documentation
+### Machine Learning Documentation
 4. **[Random Forest Classifier](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)** - Scikit-learn Random Forest implementation
 5. **[AdaBoost Classifier](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html)** - Scikit-learn AdaBoost documentation
 6. **[CatBoost Documentation](https://catboost.ai/)** - Official CatBoost gradient boosting library
@@ -537,18 +537,18 @@ wandb >= 0.12.0      # Weights & Biases integration
 11. **[Imbalanced-learn Documentation](https://imbalanced-learn.org/)** - Specialized library for imbalanced dataset handling
 12. **[Cross-Validation Techniques](https://scikit-learn.org/stable/modules/cross_validation.html)** - Model validation strategies and best practices
 
-### 🎓 Academic References
+### Academic References
 - Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson and Gianluca Bontempi. **Calibrating Probability with Undersampling for Unbalanced Classification.** In Symposium on Computational Intelligence and Data Mining (CIDM), IEEE, 2015
 - Dal Pozzolo, Andrea; Caelen, Olivier; Le Borgne, Yann-Ael; Waterschoot, Serge; Bontempi, Gianluca. **Learned lessons in credit card fraud detection from a practitioner perspective**, Expert systems with applications, 41,4, 4915-4928, 2014
 
 ---
 
-## 🎯 Project Status
+## Project Status
 
-✅ **Complete** - All analysis finished, model optimized, documentation updated
+**Complete** - All analysis finished, model optimized, documentation updated
 
-**📊 Final Performance:** 96% AUC Score achieved with XGBoost
+**Final Performance:** 96% AUC Score achieved with XGBoost
 
-**🚀 Production Ready:** Model optimized for real-world deployment
+**Production Ready:** Model optimized for real-world deployment
 
 ---
