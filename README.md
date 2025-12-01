@@ -493,13 +493,6 @@ catboost >= 1.0.0
 jupyter >= 1.0.0
 ipykernel >= 6.0.0
 ```
-
-### System Requirements
-- **RAM:** Minimum 8GB (16GB recommended for full dataset)
-- **Storage:** ~2GB free space for datasets and model outputs
-- **CPU:** Multi-core processor recommended for cross-validation
-- **OS:** Windows 10+, macOS 10.14+, or Linux Ubuntu 18.04+
-
 ### Optional Dependencies
 ```txt
 # Enhanced Performance
