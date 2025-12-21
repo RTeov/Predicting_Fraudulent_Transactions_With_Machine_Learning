@@ -242,12 +242,12 @@ The comprehensive EDA includes:
 - **Training Efficiency:** <30 minutes for full ensemble training
 
 ### Key Achievements
-✅ Exceeded target AUC of 0.95  
-✅ Robust performance across validation and test sets  
-✅ Production-ready ensemble with saved models  
-✅ Comprehensive feature engineering pipeline  
-✅ Automated hyperparameter optimization  
-✅ Optimal threshold for practical deployment  
+Exceeded target AUC of 0.95  
+Robust performance across validation and test sets  
+Production-ready ensemble with saved models  
+Comprehensive feature engineering pipeline  
+Automated hyperparameter optimization  
+Optimal threshold for practical deployment  
 
 ---
 
@@ -259,7 +259,7 @@ The comprehensive EDA includes:
 
 ---
 
-## � How to Run the Project
+## How to Run the Project
 
 This section provides a clear, step-by-step guide for running the project both locally and on AWS SageMaker.
 
@@ -399,7 +399,7 @@ aws:
 
    ---
 
-   ### ▶️ Run Locally (Batch Inference & Aggregation)
+   ### Run Locally (Batch Inference & Aggregation)
 
    1. **Install dependencies:**
       ```bash
@@ -429,7 +429,7 @@ aws:
 
    ---
 
-   ### ▶️ Run on AWS SageMaker or Cloud (Batch Inference & Aggregation)
+   ### Run on AWS SageMaker or Cloud (Batch Inference & Aggregation)
 
    1. **Upload input data to S3:**
       - Upload `creditcard_post_correlation.csv` to your S3 bucket.
@@ -440,7 +440,7 @@ aws:
       - Ensure your credentials have permission to read/write to the specified S3 locations.
    3. **Build and push Docker image:**
       ```bash
-   ## 🚀 How to Run the Project
+   ## How to Run the Project
 
    This section provides a clear, step-by-step guide for running the project both locally and on AWS SageMaker.
 
@@ -587,6 +587,14 @@ imbalanced-learn >= 0.9.0  # SMOTE and other resampling techniques
 mlflow >= 1.18.0     # Experiment tracking
 wandb >= 0.12.0      # Weights & Biases integration
 ```
+## Project Status
+
+**Complete** - All analysis finished, advanced optimization completed, documentation updated
+
+**Final Performance:** 
+- **Ensemble Model AUC: >0.95** (Validation and Test)
+- **Improvement: 11.7%** from baseline XGBoost (0.8529 → >0.95)
+- **Fraud Detection Rate: >97%**
 
 ---
 
@@ -612,36 +620,3 @@ wandb >= 0.12.0      # Weights & Biases integration
 13. **[Scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)** - Comprehensive machine learning library documentation
 14. **[Cross-Validation Techniques](https://scikit-learn.org/stable/modules/cross_validation.html)** - Model validation strategies and best practices
 15. **[Ensemble Methods](https://scikit-learn.org/stable/modules/ensemble.html)** - Combining multiple models for better predictions
-
-### Academic References
-- Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson and Gianluca Bontempi. **Calibrating Probability with Undersampling for Unbalanced Classification.** In Symposium on Computational Intelligence and Data Mining (CIDM), IEEE, 2015
-- Dal Pozzolo, Andrea; Caelen, Olivier; Le Borgne, Yann-Ael; Waterschoot, Serge; Bontempi, Gianluca. **Learned lessons in credit card fraud detection from a practitioner perspective**, Expert systems with applications, 41,4, 4915-4928, 2014
-
----
-
-## Project Status
-
-**Complete** - All analysis finished, advanced optimization completed, documentation updated
-
-**Final Performance:** 
-- **Ensemble Model AUC: >0.95** (Validation and Test)
-- **Improvement: 11.7%** from baseline XGBoost (0.8529 → >0.95)
-- **Fraud Detection Rate: >97%**
-
-**Production Ready:** 
-- Ensemble model with optimized hyperparameters
-- Saved model artifacts in `Models/` directory
-- Optimal classification threshold determined
-- Complete feature engineering pipeline
-- Ready for real-world deployment
-
-**Key Achievements:**
-- Exceeded target AUC of 0.95
-- Advanced feature engineering (30+ new features)
-- Hyperparameter optimization with Optuna
-- SMOTE for class imbalance handling
-- Weighted ensemble approach
-- Threshold optimization for F1-score
-- Comprehensive documentation and analysis
-
----
