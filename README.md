@@ -234,8 +234,8 @@ The comprehensive EDA includes:
 
 **Optimized Models (Notebook 9) - Breakthrough Results:**
 
-| Model | Validation AUC | Test AUC | Improvement | Status |
-|-------|---------------|----------|-------------|--------|
+| Model | Validation AUC | Test AUC | Improvement |
+|-------|---------------|----------|-------------|
 | **Optimized LightGBM** | **0.9959** | **0.9658** | **+16.77%** |
 | **CatBoost (Optimized)** | **0.9849** | **0.9846** | **+15.48%** |
 | **Improved XGBoost** | **0.9801** | **0.9745** | **+14.91%** |
