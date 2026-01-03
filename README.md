@@ -19,13 +19,11 @@ This repository contains a complete end-to-end workflow for detecting fraudulent
 
 ## Project Highlights
 
-- **Exceptional Performance**: Achieved AUC 0.9959 with Optimized LightGBM (15-17% improvement from baseline)
-- **Three Production-Ready Models**: LightGBM (0.9959), CatBoost (0.9849), XGBoost (0.9801) all exceeding 0.97 AUC
-- **Advanced Optimization**: Hyperparameter tuning with Optuna (50+ trials), SMOTE, and feature engineering (30+ features)
-- **Comprehensive Analysis**: 10 detailed Jupyter notebooks covering complete ML pipeline with breakthrough optimization
-- **Systematic Evaluation**: Baseline models (0.81-0.89 AUC) followed by advanced optimization achieving 0.98-0.996 AUC
-- **Strong Generalization**: Test AUC 0.9658-0.9846 demonstrating robust real-world performance
-- **Business Impact**: Near-perfect fraud detection system with 99.6% detection capability
+- **Exceptional Performance**: Achieved AUC 0.9959 with optimized models (15-17% improvement from baseline)
+- **Production-Ready**: Three models exceeding 0.97 AUC with strong generalization to test data
+- **Advanced Techniques**: Hyperparameter tuning with Optuna, SMOTE for class imbalance, and 30+ engineered features
+- **Comprehensive Pipeline**: 10 Jupyter notebooks covering data preparation through deployment optimization
+- **Business Impact**: Near-perfect fraud detection capability suitable for real-world deployment
 
 ---
 
@@ -173,48 +171,20 @@ The comprehensive EDA includes:
 
 ## Machine Learning Models
 
-### 1. Random Forest Classifier
-- **Purpose:** Baseline ensemble model for comparison
-- **Validation Performance:** AUC 0.8529
-- **Strengths:** Feature importance, robust to overfitting
-- **Implementation:** Grid search optimization with cross-validation
+### Baseline Models (Notebooks 4-8)
+- **Random Forest**: Ensemble model with feature importance analysis
+- **AdaBoost**: Adaptive boosting focused on misclassified examples
+- **CatBoost**: Gradient boosting with categorical feature handling
+- **XGBoost**: Extreme gradient boosting with regularization
+- **LightGBM**: Efficient gradient boosting with fast training
 
-### 2. AdaBoost Classifier  
-- **Purpose:** Adaptive boosting for improved performance on imbalanced data
-- **Validation Performance:** AUC 0.8135
-- **Strengths:** Focuses on misclassified examples
-- **Optimization:** Learning rate and n_estimators tuning
-
-### 3. CatBoost Classifier
-- **Purpose:** Gradient boosting with efficient categorical feature handling
-- **Validation Performance:** AUC 0.8578
-- **Strengths:** Built-in overfitting protection, high precision (0.9481)
-- **Note:** Strong precision but lower recall on imbalanced data
-
-### 4. XGBoost Classifier
-- **Purpose:** Extreme gradient boosting for high performance
-- **Baseline Performance:** AUC 0.8529
-- **Improved Performance:** AUC >0.90 with enhanced features and tuning
-- **Strengths:** Fast training, regularization, parallel processing
-
-### 5. LightGBM
-- **Purpose:** Efficient gradient boosting with fast training
-- **Validation Performance:** AUC 0.8883
-- **Strengths:** Memory efficiency, fast training, leaf-wise growth
-- **Note:** Baseline model without advanced optimization
-
-### 6. Advanced Optimization (Notebook 9)
-- **Techniques Applied:**
-  - Advanced feature engineering (30+ new features)
-  - SMOTE for class imbalance handling (50% sampling strategy)
-  - Hyperparameter optimization with Optuna (50+ trials)
-  - Multiple optimized gradient boosting models
-  - Threshold optimization for F1-score maximization
-- **Final Performance:** 
-  - **Optimized LightGBM**: Validation AUC **0.9959**, Test AUC **0.9658** (+16.77% improvement)
-  - **CatBoost (Optimized)**: Validation AUC **0.9849**, Test AUC **0.9846** (+15.48% improvement)
-  - **Improved XGBoost**: Validation AUC **0.9801**, Test AUC **0.9745** (+14.91% improvement)
-- **Production Ready:** Saved models with configuration files
+### Advanced Optimization (Notebook 9)
+Applied comprehensive optimization techniques:
+- Advanced feature engineering (30+ temporal, interaction, and statistical features)
+- SMOTE for class imbalance (0.17% to 50% fraud rate in training)
+- Hyperparameter optimization with Optuna (50+ trials)
+- Threshold tuning for F1-score maximization
+- Production-ready model export and configuration
 
 ---
 
@@ -273,19 +243,13 @@ The comprehensive EDA includes:
 - Optimal threshold tuning for F1-score maximization
 - All models saved and ready for deployment  
 
----
 
-## Production/Batch Inference & AWS Integration
-
-## Cloud Deployment
-
-**Note:** The cloud deployment for this project is set up in advance for Amazon SageMaker. All deployment scripts, configurations, and model export formats are designed to be compatible with SageMaker's managed machine learning environment. If you wish to deploy to a different cloud provider, additional modifications may be required.
-
----
 
 ## How to Run the Project
 
 This section provides a clear, step-by-step guide for running the project both locally and on AWS SageMaker.
+
+**Note:** Cloud deployment is configured for Amazon SageMaker. For other cloud providers, additional modifications will be required.
 
 ---
 
@@ -415,149 +379,7 @@ aws:
    ---
 
 
-   **To generate this file:** Run the following notebooks in order:
-   1. `1_Data_Preparation.ipynb`
-   2. `2_Data_Exploration.ipynb`
-   3. `3_Features_Correlation.ipynb`
-   These notebooks will process the raw data and produce `creditcard_post_correlation.csv` in the `Input_Data/` folder. Alternatively, obtain the file from your data pipeline if available.
-
-   ---
-
-   ### Run Locally (Batch Inference & Aggregation)
-
-   1. **Install dependencies:**
-      ```bash
-      pip install -r requirements.txt
-      ```
-   2. **Prepare your input data:**
-      - Place your input CSV (with the required columns) in the location specified by `input_data` in `config.yaml`.
-   3. **Edit `config.yaml`:**
-      - Set all paths, model files, and AWS credentials as needed.
-      - Set `output_dir` to the directory where you want all predictions and the aggregated results to be saved.
-      - Select which models to run in `models_to_run`.
-   4. **Run all batch scripts and aggregate results:**
-      ```bash
-      python app/random_forest_batch.py
-      python app/adaboost_batch.py
-      python app/catboost_batch.py
-      python app/xgboost_batch.py
-      python app/lightgbm_batch.py
-      python app/aggregate_results.py
-      ```
-      Or, if using Docker:
-      ```bash
-      docker build -t fraud-batch .
-      docker run --rm -v $(pwd)/output:/app/output fraud-batch
-      ```
-      (All outputs will be in the `output_dir` specified in your config.)
-
-   ---
-
-   ### Run on AWS SageMaker or Cloud (Batch Inference & Aggregation)
-
-   1. **Upload input data to S3:**
-      - Upload `creditcard_post_correlation.csv` to your S3 bucket.
-      - In `config.yaml`, set `input_data` to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
-      - Optionally, set `output_dir` to an S3 URI for cloud-based output aggregation.
-   2. **Edit `config.yaml`:**
-      - Set all model paths, AWS credentials, and other parameters as needed.
-      - Ensure your credentials have permission to read/write to the specified S3 locations.
-   3. **Build and push Docker image:**
-      ```bash
-   ## How to Run the Project
-
-   This section provides a clear, step-by-step guide for running the project both locally and on AWS SageMaker.
-
-   ---
-
-   ### 1. Prepare Input Data
-
-   - Ensure you have the processed input file: `Input_Data/creditcard_post_correlation.csv`.
-   - If you do not have this file, generate it by running the following notebooks in order:
-     1. `notebooks/1_Data_Preparation.ipynb`
-     2. `notebooks/2_Data_Exploration.ipynb`
-     3. `notebooks/3_Features_Correlation.ipynb`
-   - Alternatively, obtain the file from your data pipeline.
-
-   ---
-
-   ### 2. Configure the Project
-
-   - Edit `config.yaml` to set:
-     - `input_data`: Path to your input CSV (local path or S3 URI)
-     - `output_dir`: Directory or S3 URI for predictions and results
-     - Model paths and AWS credentials as needed
-   - Make sure your AWS credentials (in `config.yaml` or as environment variables) have permission to access the specified S3 buckets if using cloud features.
-
-   ---
-
-   ### 3. Install Dependencies
-
-   Install all required Python packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-   ---
-
-   ### 4. Run Batch Inference & Aggregation Locally
-
-   Run the batch scripts to generate predictions and aggregate results:
-   ```bash
-   python app/random_forest_batch.py
-   python app/adaboost_batch.py
-   python app/catboost_batch.py
-   python app/xgboost_batch.py
-   python app/lightgbm_batch.py
-   python app/aggregate_results.py
-   ```
-   All outputs will be saved in the `output_dir` specified in your config.
-
-   Or, using Docker:
-   ```bash
-   docker build -t fraud-batch .
-   docker run --rm -v %cd%/output:/app/output fraud-batch
-   ```
-   *(On Windows, use `%cd%` instead of `$(pwd)` for the current directory.)*
-
-   ---
-
-   ### 5. Run on AWS SageMaker (Cloud Batch Inference)
-
-   1. **Upload input data to S3:**
-      - Upload `creditcard_post_correlation.csv` to your S3 bucket.
-      - Set `input_data` in `config.yaml` to the S3 URI (e.g., `s3://your-bucket/path/creditcard_post_correlation.csv`).
-   2. **Build and push Docker image:**
-      ```bash
-      docker build -t fraud-batch .
-      aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
-      docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-      docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-      ```
-   3. **Launch a SageMaker Processing or Batch Transform job:**
-      - Use the ECR image and specify S3 input/output locations in your SageMaker job definition.
-      - The container will run all batch scripts and aggregate results automatically.
-      - All outputs will be written to the S3 location mapped to your `output_dir` in `config.yaml`.
-      - Pass AWS credentials via `config.yaml` or as environment variables if needed.
-
-   ---
-
-   **Note:**
-   - All configuration is managed via `config.yaml`.
-   - For more details on input data format, see the "Example Input Data Format" section below.
-   - For troubleshooting or advanced usage, refer to the comments in each batch script and the Dockerfile.
-```bash
-# Tag and push
-docker tag fraud-batch:latest <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-docker push <account-id>.dkr.ecr.<region>.amazonaws.com/fraud-batch:latest
-```
-   4. **Launch a SageMaker Processing or Batch Transform job:**
-      - Use the ECR image and specify S3 input/output locations in your SageMaker job definition.
-      - The container will run all batch scripts and aggregate results automatically (see Dockerfile entrypoint).
-      - All outputs will be written to the S3 location mapped to your `output_dir` in `config.yaml`.
-      - You can pass AWS credentials via `config.yaml` or as environment variables at job launch if needed.
-
-   ---
+   
 
 ---
 
@@ -613,15 +435,7 @@ wandb >= 0.12.0      # Weights & Biases integration
 ```
 ## Project Status
 
-**Complete** - All analysis finished, breakthrough optimization achieved, documentation updated
-
-**Final Performance:** 
-- **Optimized LightGBM: AUC 0.9959** (Validation), **0.9658** (Test)
-- **CatBoost (Optimized): AUC 0.9849** (Validation), **0.9846** (Test)
-- **Improved XGBoost: AUC 0.9801** (Validation), **0.9745** (Test)
-- **Average Improvement: 15.7%** from baseline models
-- **Fraud Detection Capability: 99.6%** (based on champion model AUC)
-- **All models production-ready** with saved configurations
+**Complete** - All analysis, optimization, and documentation finished. Three production-ready models with comprehensive evaluation metrics available in the Results & Performance section.
 
 ---
 
